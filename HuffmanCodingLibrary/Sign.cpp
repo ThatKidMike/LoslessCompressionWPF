@@ -5,20 +5,16 @@ namespace HuffmanTmp {
 	Sign::Sign(char sign)
 		: sign(sign) {
 
-		visited = false;
 
 	} 
 
-	Sign::Sign(char sign, int numOfOccurrences, Sign* leftNode, Sign* rightNode)
-		: sign(sign), numOfOccurrences(numOfOccurrences), leftNode(leftNode), rightNode(rightNode) {
-
-		visited = false;
+	Sign::Sign(char sign, int numOfOccurrences, Sign* leftNode, Sign* rightNode, int id)
+		: sign(sign), numOfOccurrences(numOfOccurrences), leftNode(leftNode), rightNode(rightNode), id(id) {
 
 	}
 
 	Sign::Sign(): sign(sign), numOfOccurrences(numOfOccurrences), leftNode(leftNode), rightNode(rightNode) {
 	
-		visited = false;
 
 	}
 
@@ -62,12 +58,8 @@ namespace HuffmanTmp {
 		codedSign = coded;
 	}
 
-	void Sign::SetVisited() {
-		visited = true;
-	}
-
-	bool Sign::GetVisited() {
-		return visited;
+	int Sign::GetId() {
+		return id;
 	}
 
 }

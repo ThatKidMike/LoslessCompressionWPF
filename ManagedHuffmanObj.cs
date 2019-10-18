@@ -68,7 +68,22 @@ namespace WPFInterop
                 {
                     previousNodePtr = currentNodePtr;
                     currentNodePtr = CsharpWrapper.GetRightNode(currentNodePtr);
-                    graph.AddEdge(CsharpWrapper.GetSignChar(previousNodePtr).ToString(), CsharpWrapper.GetSignChar(currentNodePtr).ToString());
+
+                    if (CsharpWrapper.GetSignChar(previousNodePtr).ToString() == "#" &&
+                        CsharpWrapper.GetSignChar(currentNodePtr).ToString() == "#")
+                    {
+                        graph.AddEdge(CsharpWrapper.GetId(previousNodePtr).ToString(), CsharpWrapper.GetId(currentNodePtr).ToString());
+
+                        graph.FindNode(CsharpWrapper.GetId(previousNodePtr).ToString()).LabelText = CsharpWrapper.GetNumOfOccurrences(previousNodePtr).ToString();
+                        graph.FindNode(CsharpWrapper.GetId(currentNodePtr).ToString()).LabelText = CsharpWrapper.GetNumOfOccurrences(currentNodePtr).ToString();
+
+                    } else if (CsharpWrapper.GetSignChar(previousNodePtr).ToString() == "#" &&
+                        CsharpWrapper.GetSignChar(currentNodePtr).ToString() != "#") 
+                    {
+                        graph.AddEdge(CsharpWrapper.GetId(previousNodePtr).ToString(), CsharpWrapper.GetSignChar(currentNodePtr).ToString());
+                        graph.FindNode(CsharpWrapper.GetId(previousNodePtr).ToString()).LabelText = CsharpWrapper.GetNumOfOccurrences(previousNodePtr).ToString();
+                    }
+
                     code += '1';
 
                 }
@@ -76,7 +91,19 @@ namespace WPFInterop
                 {
                     previousNodePtr = currentNodePtr;
                     currentNodePtr = CsharpWrapper.GetLeftNode(currentNodePtr);
-                    graph.AddEdge(CsharpWrapper.GetSignChar(previousNodePtr).ToString(), CsharpWrapper.GetSignChar(currentNodePtr).ToString());
+
+                    if (CsharpWrapper.GetSignChar(previousNodePtr).ToString() == "#" &&
+                       CsharpWrapper.GetSignChar(currentNodePtr).ToString() == "#")
+                    {
+                        graph.AddEdge(CsharpWrapper.GetId(previousNodePtr).ToString(), CsharpWrapper.GetId(currentNodePtr).ToString());
+
+                    }
+                    else if (CsharpWrapper.GetSignChar(previousNodePtr).ToString() == "#" &&
+                      CsharpWrapper.GetSignChar(currentNodePtr).ToString() != "#")
+                    {
+                        graph.AddEdge(CsharpWrapper.GetId(previousNodePtr).ToString(), CsharpWrapper.GetSignChar(currentNodePtr).ToString());
+                    }
+
                     code += '0';
                 }
                 else

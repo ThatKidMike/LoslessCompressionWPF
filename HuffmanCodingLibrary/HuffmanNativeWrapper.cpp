@@ -57,3 +57,6 @@ extern "C" LIBRARY_EXPORT void SetLeftNodeNull(HuffmanTmp::Sign* sign) {
 extern "C" LIBRARY_EXPORT void SetRightNodeNull(HuffmanTmp::Sign* sign) {
 	sign->SetRightNodeNull();
 }
+extern "C" LIBRARY_EXPORT int GetId(HuffmanTmp::Sign * sign) {
+	return sign->GetId();
+}

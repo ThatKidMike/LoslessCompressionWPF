@@ -85,6 +85,9 @@ namespace WPFInterop
         [DllImport("HuffmanCodingLibrary.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void SetRightNodeNull(IntPtr instance);
 
+        [DllImport("HuffmanCodingLibrary.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int GetId(IntPtr instance);
+
 
     }
 }

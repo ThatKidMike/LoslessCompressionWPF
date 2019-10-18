@@ -10,7 +10,7 @@ namespace HuffmanTmp {
 
 		for (char character : inputSeries)
 		{
-			vecTmpSignContainer.push_back(Sign(character, 0, nullptr, nullptr));
+			vecTmpSignContainer.push_back(Sign(character, 0, nullptr, nullptr, 0));
 		}
 
 		for (Sign sign : vecTmpSignContainer)

@@ -9,6 +9,8 @@ namespace HuffmanTmp {
 		Sign* leftSignPtr;
 		Sign* rightSignPtr;
 
+		int currentId = 1;
+
 		while (pqSignContainer->size() != 1)
 		{
 
@@ -17,7 +19,8 @@ namespace HuffmanTmp {
 			rightSignPtr = pqSignContainer->top();
 			pqSignContainer->pop();
 
-			Sign* resultSign = new Sign((char)(leftSignPtr->GetNumOfOccurrences() + rightSignPtr->GetNumOfOccurrences()), leftSignPtr->GetNumOfOccurrences() + rightSignPtr->GetNumOfOccurrences(), leftSignPtr, rightSignPtr);
+			Sign* resultSign = new Sign('#', leftSignPtr->GetNumOfOccurrences() + rightSignPtr->GetNumOfOccurrences(), leftSignPtr, rightSignPtr, currentId);
+			currentId++;
 			pqSignContainer->push(resultSign);
 
 		} 

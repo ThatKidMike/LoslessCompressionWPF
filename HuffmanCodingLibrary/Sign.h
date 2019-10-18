@@ -11,10 +11,10 @@ namespace HuffmanTmp {
 		Sign* leftNode;
 		Sign* rightNode;
 		std::string codedSign;
-		bool visited;
+		int id;
 	public:
 		Sign(char sign);
-		Sign(char sign, int numOfOccurrences, Sign* leftNode, Sign* rightNode);
+		Sign(char sign, int numOfOccurrences, Sign* leftNode, Sign* rightNode, int id);
 		Sign();
 
 		char GetSign();
@@ -27,9 +27,8 @@ namespace HuffmanTmp {
 		void SetRightNodeNull();
 		std::string GetCodedSign();
 		void SetCodedSign(std::string coded);
-		
-		void SetVisited();
-		bool GetVisited();
+	
+		int GetId();
 
 		struct CustomPqComparator {
 
