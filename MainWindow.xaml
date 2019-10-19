@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPFInterop"
         xmlns:gv="clr-namespace:Microsoft.Msagl.GraphViewerGdi;assembly=Microsoft.Msagl.GraphViewerGdi"
         mc:Ignorable="d"
-        Title="MainWindow" Height="456.374" Width="800">
+        Title="MainWindow" Height="574.917" Width="1069.143">
 
     <StackPanel Margin="0,0,0,2">
         <Button x:Name="theButton" Height="25" Margin="0,0,672,0" Content="Button"/>
@@ -15,10 +15,10 @@
         </TextBox>
         <TextBlock x:Name="outputBlock" Height="19"/>
 
-        <WindowsFormsHost Name="windowsFormsHost" Margin="0, 34, 0, 0" Height="335">
+        <WindowsFormsHost Name="windowsFormsHost" Margin="0, 34, 0, 0" Height="436" Background="White">
             <gv:GViewer x:Name="gViewer"></gv:GViewer>
         </WindowsFormsHost>
-        
+
     </StackPanel>
 
 

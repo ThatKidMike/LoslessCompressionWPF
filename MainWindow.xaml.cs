@@ -26,7 +26,12 @@ namespace WPFInterop
             InitializeComponent();
             gViewer.ToolBarIsVisible = false;
             theButton.Click += TheButton_Click;
-  
+            MouseWheel += mouseWheel;
+
+
+            System.Drawing.SolidBrush solidWhite = new System.Drawing.SolidBrush(System.Drawing.Color.White);
+            gViewer.OutsideAreaBrush = solidWhite;
+
         }
 
         private void TheButton_Click(object sender, RoutedEventArgs e)
@@ -36,28 +41,17 @@ namespace WPFInterop
             {
                 ManagedHuffmanObj obj = new ManagedHuffmanObj(inputBox.Text);
 
-                this.gViewer.Graph = obj.HuffmanTreeTraverse(obj.GetApex());
+                gViewer.Graph = obj.HuffmanTreeTraverse(obj.GetApex());
 
                 obj.delete();
 
             }
-
-            //create a viewer object 
-            //Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
-            //create a graph object 
-            Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph("graph");
-            //create the graph content 
-            //graph.AddEdge("A", "B");
-            //graph.AddEdge("B", "C");
-            //graph.AddEdge("A", "C").Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
-            //graph.FindNode("A").Attr.FillColor = Microsoft.Msagl.Drawing.Color.Magenta;
-            //graph.FindNode("B").Attr.FillColor = Microsoft.Msagl.Drawing.Color.MistyRose;
-            //Microsoft.Msagl.Drawing.Node c = graph.FindNode("C");
-            //c.Attr.FillColor = Microsoft.Msagl.Drawing.Color.PaleGreen;
-            //c.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Diamond;
-            //bind the graph to the viewer 
-            //this.gViewer.Graph = graph;
-
         }
+
+        private void mouseWheel(object sender, RoutedEventArgs e)
+        {
+            gViewer.Pan(0, 10);
+        }
+
     }
 }

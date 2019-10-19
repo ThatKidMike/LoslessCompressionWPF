@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,8 @@ namespace WPFInterop
         private IntPtr previousNodePtr;
         private string code;
         private Graph graph;
+        private List<Edge> edges = new List<Edge>();
+        private List<Tuple<string, string>> sourceDestination = new List<Tuple<string, string>>();
 
         public ManagedHuffmanObj(string inputStream)
         {
@@ -53,13 +56,19 @@ namespace WPFInterop
             return native_apex;
         }
 
+        private struct NodesToBuildTree
+        {
+            public Node SourceNode { get; set; }
+            public Node RightNode { get; set; }
+            public Node LeftNode { get; set; }
+        }
+
         public Graph HuffmanTreeTraverse(IntPtr apex)
         {
 
             Console.WriteLine("----------------------------------------------");
 
             currentNodePtr = apex;
-            graph.AddNode(CsharpWrapper.GetSignChar(currentNodePtr).ToString());
 
             while (!(CsharpWrapper.GetLeftNode(apex) == IntPtr.Zero && CsharpWrapper.GetRightNode(apex) == IntPtr.Zero))
             {
@@ -72,16 +81,28 @@ namespace WPFInterop
                     if (CsharpWrapper.GetSignChar(previousNodePtr).ToString() == "#" &&
                         CsharpWrapper.GetSignChar(currentNodePtr).ToString() == "#")
                     {
-                        graph.AddEdge(CsharpWrapper.GetId(previousNodePtr).ToString(), CsharpWrapper.GetId(currentNodePtr).ToString());
 
-                        graph.FindNode(CsharpWrapper.GetId(previousNodePtr).ToString()).LabelText = CsharpWrapper.GetNumOfOccurrences(previousNodePtr).ToString();
-                        graph.FindNode(CsharpWrapper.GetId(currentNodePtr).ToString()).LabelText = CsharpWrapper.GetNumOfOccurrences(currentNodePtr).ToString();
+                        if (!(sourceDestination.Any(x => x.Item1 == CsharpWrapper.GetId(previousNodePtr).ToString() && x.Item2 == CsharpWrapper.GetId(currentNodePtr).ToString()))) {
 
-                    } else if (CsharpWrapper.GetSignChar(previousNodePtr).ToString() == "#" &&
-                        CsharpWrapper.GetSignChar(currentNodePtr).ToString() != "#") 
+                            Edge currentEdge = graph.AddEdge(CsharpWrapper.GetId(previousNodePtr).ToString(), CsharpWrapper.GetId(currentNodePtr).ToString());
+
+                            sourceDestination.Add(new Tuple<string, string>(CsharpWrapper.GetId(previousNodePtr).ToString(), CsharpWrapper.GetId(currentNodePtr).ToString()));
+
+                            currentEdge.LabelText = "1";
+
+                            graph.FindNode(CsharpWrapper.GetId(previousNodePtr).ToString()).LabelText = CsharpWrapper.GetNumOfOccurrences(previousNodePtr).ToString();
+                            graph.FindNode(CsharpWrapper.GetId(currentNodePtr).ToString()).LabelText = CsharpWrapper.GetNumOfOccurrences(currentNodePtr).ToString();
+
+                        }
+
+                    }
+                    else if (CsharpWrapper.GetSignChar(previousNodePtr).ToString() == "#" &&
+                      CsharpWrapper.GetSignChar(currentNodePtr).ToString() != "#")
                     {
-                        graph.AddEdge(CsharpWrapper.GetId(previousNodePtr).ToString(), CsharpWrapper.GetSignChar(currentNodePtr).ToString());
+                        Edge currentEdge = graph.AddEdge(CsharpWrapper.GetId(previousNodePtr).ToString(), CsharpWrapper.GetSignChar(currentNodePtr).ToString());
+                        currentEdge.LabelText = "1";
                         graph.FindNode(CsharpWrapper.GetId(previousNodePtr).ToString()).LabelText = CsharpWrapper.GetNumOfOccurrences(previousNodePtr).ToString();
+
                     }
 
                     code += '1';
@@ -95,13 +116,30 @@ namespace WPFInterop
                     if (CsharpWrapper.GetSignChar(previousNodePtr).ToString() == "#" &&
                        CsharpWrapper.GetSignChar(currentNodePtr).ToString() == "#")
                     {
-                        graph.AddEdge(CsharpWrapper.GetId(previousNodePtr).ToString(), CsharpWrapper.GetId(currentNodePtr).ToString());
+
+                        if (!(sourceDestination.Any(x => x.Item1 == CsharpWrapper.GetId(previousNodePtr).ToString() && x.Item2 == CsharpWrapper.GetId(currentNodePtr).ToString())))
+                        {
+
+                            Edge currentEdge = graph.AddEdge(CsharpWrapper.GetId(previousNodePtr).ToString(), CsharpWrapper.GetId(currentNodePtr).ToString());
+
+                            sourceDestination.Add(new Tuple<string, string>(CsharpWrapper.GetId(previousNodePtr).ToString(), CsharpWrapper.GetId(currentNodePtr).ToString()));
+
+                            currentEdge.LabelText = "0";
+
+                            graph.FindNode(CsharpWrapper.GetId(previousNodePtr).ToString()).LabelText = CsharpWrapper.GetNumOfOccurrences(previousNodePtr).ToString();
+                            graph.FindNode(CsharpWrapper.GetId(currentNodePtr).ToString()).LabelText = CsharpWrapper.GetNumOfOccurrences(currentNodePtr).ToString();
+
+                        }
+
 
                     }
                     else if (CsharpWrapper.GetSignChar(previousNodePtr).ToString() == "#" &&
                       CsharpWrapper.GetSignChar(currentNodePtr).ToString() != "#")
                     {
-                        graph.AddEdge(CsharpWrapper.GetId(previousNodePtr).ToString(), CsharpWrapper.GetSignChar(currentNodePtr).ToString());
+                        Edge currentEdge = graph.AddEdge(CsharpWrapper.GetId(previousNodePtr).ToString(), CsharpWrapper.GetSignChar(currentNodePtr).ToString());
+                        currentEdge.LabelText = "0";
+                        graph.FindNode(CsharpWrapper.GetId(previousNodePtr).ToString()).LabelText = CsharpWrapper.GetNumOfOccurrences(previousNodePtr).ToString();
+
                     }
 
                     code += '0';
@@ -111,7 +149,7 @@ namespace WPFInterop
 
                     if (CsharpWrapper.GetSignChar(currentNodePtr) != '#')
                     {
-                        
+
                         if (code[code.Length - 1] == '1')
                         {
                             CsharpWrapper.SetRightNodeNull(previousNodePtr);
@@ -143,9 +181,12 @@ namespace WPFInterop
 
             }
 
+
             return graph;
 
-        }
 
+
+        }
     }
+
 }
