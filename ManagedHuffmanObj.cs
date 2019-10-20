@@ -24,14 +24,13 @@ namespace WPFInterop
         private IntPtr native_huffmanTree;
         private IntPtr native_pqQueue;
         private IntPtr native_apex;
-        private IntPtr native_huffmanTraverse;
 
         private IntPtr currentNodePtr;
         private IntPtr previousNodePtr;
         private string code;
         private Graph graph;
-        private List<Edge> edges = new List<Edge>();
-        private List<Tuple<string, string>> sourceDestination = new List<Tuple<string, string>>();
+        private List<Tuple<string, string>> sourceDestination;
+        private Dictionary<string, string> codedSigns;
 
         public ManagedHuffmanObj(string inputStream)
         {
@@ -39,8 +38,9 @@ namespace WPFInterop
             native_pqQueue = CsharpWrapper.GetPqSignContainer(native_huffmanOccurencesCounter);
             native_huffmanTree = CsharpWrapper.new_HuffmanTree(native_pqQueue);
             native_apex = CsharpWrapper.GetApex(native_huffmanTree);
-            //native_huffmanTraverse = CsharpWrapper.new_HuffmanTreeTraverse(native_apex);
 
+            sourceDestination = new List<Tuple<string, string>>();
+            codedSigns = new Dictionary<string, string>();
             graph = new Graph("graph");
         }
 
@@ -48,7 +48,6 @@ namespace WPFInterop
         {
             CsharpWrapper.delete_HuffmanTree(native_huffmanTree);
             CsharpWrapper.delete_OccurencesCounter(native_huffmanOccurencesCounter);
-            //CsharpWrapper.delete_HuffmanTreeTraverse(native_huffmanTraverse);
         }
 
         public IntPtr GetApex()
@@ -160,6 +159,7 @@ namespace WPFInterop
                         }
                         CsharpWrapper.SetSignCode(currentNodePtr, code);
                         Console.WriteLine(CsharpWrapper.GetSignChar(currentNodePtr) + " :: " + code);
+                        codedSigns.Add(CsharpWrapper.GetSignChar(currentNodePtr).ToString(), code);
                         code = "";
                     }
                     else if (CsharpWrapper.GetSignChar(currentNodePtr) == '#')
@@ -186,6 +186,11 @@ namespace WPFInterop
 
 
 
+        }
+
+        public Dictionary<string, string> GetCodedSigns()
+        {
+            return codedSigns;
         }
     }
 

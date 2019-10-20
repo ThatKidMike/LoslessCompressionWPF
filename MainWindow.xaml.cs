@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
+using Microsoft.Msagl.Drawing;
 
 namespace WPFInterop
 {
@@ -21,6 +22,9 @@ namespace WPFInterop
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private ManagedHuffmanObj obj;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -29,7 +33,8 @@ namespace WPFInterop
             gViewer.KeyDown += new System.Windows.Forms.KeyEventHandler(_ViewerKeyDown);
             KeyDown += HostWindowKeyDown;
             KeyUp += HostWindowKeyUp;
-            
+            gViewer.MouseClick += new System.Windows.Forms.MouseEventHandler(_ViewerMouseClick);
+ 
             System.Drawing.SolidBrush solidWhite = new System.Drawing.SolidBrush(System.Drawing.Color.White);
             gViewer.OutsideAreaBrush = solidWhite;
 
@@ -40,7 +45,7 @@ namespace WPFInterop
 
             if (inputBox.Text != "")
             {
-                ManagedHuffmanObj obj = new ManagedHuffmanObj(inputBox.Text);
+                obj = new ManagedHuffmanObj(inputBox.Text);
 
                 gViewer.Graph = obj.HuffmanTreeTraverse(obj.GetApex());
 
@@ -92,6 +97,25 @@ namespace WPFInterop
         private void UpdateCursor(System.Windows.Forms.Cursor cursor)
         {
             gViewer.Cursor = cursor;
+        }
+
+        private void _ViewerMouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            try
+            {
+                if (gViewer.SelectedObject.GetType() == typeof(Node) && gViewer.SelectedObject != null)
+                {
+                    var selectedObj = gViewer.SelectedObject;
+                    Node selectedNode = (Node)selectedObj;
+                    string code = obj.GetCodedSigns()[selectedNode.LabelText];
+                    if (code != null) 
+                    outputBlock.Text = selectedNode.LabelText + " :: " + code;                
+                }
+            } catch(Exception ex)
+            {
+                ex.ToString();
+            }
+
         }
 
     }
