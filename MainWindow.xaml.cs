@@ -26,9 +26,10 @@ namespace WPFInterop
             InitializeComponent();
             gViewer.ToolBarIsVisible = false;
             theButton.Click += TheButton_Click;
-            MouseWheel += mouseWheel;
-
-
+            gViewer.KeyDown += new System.Windows.Forms.KeyEventHandler(_ViewerKeyDown);
+            KeyDown += HostWindowKeyDown;
+            KeyUp += HostWindowKeyUp;
+            
             System.Drawing.SolidBrush solidWhite = new System.Drawing.SolidBrush(System.Drawing.Color.White);
             gViewer.OutsideAreaBrush = solidWhite;
 
@@ -48,9 +49,49 @@ namespace WPFInterop
             }
         }
 
-        private void mouseWheel(object sender, RoutedEventArgs e)
+        private void HostWindowKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            gViewer.Pan(0, 10);
+            switch (e.Key)
+            {
+                case Key.LeftCtrl:
+                    _ViewerKeyDown(null, new System.Windows.Forms.KeyEventArgs(Keys.Control));
+                    break;
+            }
+        }
+
+        private void HostWindowKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.LeftCtrl:
+                    _ViewerKeyUp(null, new System.Windows.Forms.KeyEventArgs(Keys.Control));
+                    break;
+            }
+
+        }
+
+        private void _ViewerKeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.LeftCtrl))
+            {     
+                    gViewer.PanButtonPressed = true;
+                    UpdateCursor(System.Windows.Forms.Cursors.Hand);
+            }
+        }
+
+        private void _ViewerKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
+        { 
+
+            if (!Keyboard.IsKeyDown(Key.LeftCtrl)) 
+            { 
+                gViewer.PanButtonPressed = false;
+                UpdateCursor(System.Windows.Forms.Cursors.Default);
+            }
+        }
+
+        private void UpdateCursor(System.Windows.Forms.Cursor cursor)
+        {
+            gViewer.Cursor = cursor;
         }
 
     }

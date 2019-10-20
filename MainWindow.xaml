@@ -14,10 +14,11 @@
 
         </TextBox>
         <TextBlock x:Name="outputBlock" Height="19"/>
-
-        <WindowsFormsHost Name="windowsFormsHost" Margin="0, 34, 0, 0" Height="436" Background="White">
-            <gv:GViewer x:Name="gViewer"></gv:GViewer>
-        </WindowsFormsHost>
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+            <WindowsFormsHost Name="windowsFormsHost" Margin="0, 34, 0, 0" Height="436" Background="White">
+                <gv:GViewer x:Name="gViewer"> </gv:GViewer>
+            </WindowsFormsHost>
+        </ScrollViewer>
 
     </StackPanel>
 
