@@ -39,8 +39,6 @@ namespace HuffmanTmp {
 		{
 			pqSignContainer.push(&vecSignContainer[i]);
 		} 
-
-		//HuffmanTmp::HuffmanTree newTree(&pqSignContainer);
 		
 	}
 
