@@ -8,7 +8,6 @@ namespace HuffmanTmp {
 
 		Sign* leftSignPtr;
 		Sign* rightSignPtr;
-
 		int currentId = 1;
 
 		while (pqSignContainer->size() != 1)

@@ -9,7 +9,6 @@ namespace WPFInterop
 {
     class CsharpWrapper
     {
-
         [DllImport("ArithmeticCodingLibrary.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr new_ProcessInput(string str);
 
@@ -87,7 +86,5 @@ namespace WPFInterop
 
         [DllImport("HuffmanCodingLibrary.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern int GetId(IntPtr instance);
-
-
     }
 }

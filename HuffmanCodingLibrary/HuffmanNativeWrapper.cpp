@@ -8,14 +8,12 @@ extern "C" LIBRARY_EXPORT void delete_OccurencesCounter(HuffmanTmp::OccurencesCo
 	delete instance;
 }
 
-
 extern "C" LIBRARY_EXPORT HuffmanTmp::HuffmanTree* new_HuffmanTree(std::priority_queue<HuffmanTmp::Sign*, std::vector<HuffmanTmp::Sign*>, HuffmanTmp::Sign::CustomPqComparator>* pqSignContainer) {
 	return new HuffmanTmp::HuffmanTree(pqSignContainer);
 }
 extern "C" LIBRARY_EXPORT void delete_HuffmanTree(HuffmanTmp::HuffmanTree* instance) {
 	delete instance;
 }
-
 
 extern "C" LIBRARY_EXPORT HuffmanTmp::HuffmanTreeTraverse* new_HuffmanTreeTraverse(HuffmanTmp::Sign* apex) {
 	return new HuffmanTmp::HuffmanTreeTraverse(apex);

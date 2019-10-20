@@ -27,7 +27,6 @@ namespace HuffmanTmp {
 		void SetRightNodeNull();
 		std::string GetCodedSign();
 		void SetCodedSign(std::string coded);
-	
 		int GetId();
 
 		struct CustomPqComparator {
