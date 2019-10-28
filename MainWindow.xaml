@@ -3,24 +3,48 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPFInterop"
-        xmlns:gv="clr-namespace:Microsoft.Msagl.GraphViewerGdi;assembly=Microsoft.Msagl.GraphViewerGdi"
+        xmlns:viewmodels="clr-namespace:WPFInterop.ViewModels"
+        xmlns:views="clr-namespace:WPFInterop.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="574.917" Width="1069.143">
+        Title="MainWindow" Height="615.417" Width="1069.143">
 
-    <StackPanel Margin="0,0,0,2">
-        <Button x:Name="theButton" Height="25" Margin="0,0,672,0" Content="Button"/>
-        <TextBox x:Name="inputBox" Height="28" x:FieldModifier="public">
+    <Window.Resources>
+        <DataTemplate x:Name="huffmanViewTemplate" DataType="{x:Type viewmodels:HuffmanViewModel}">
+            <views:HuffmanView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="arithmeticViewTemplate" DataType="{x:Type viewmodels:ArithmeticViewModel}">
+            <views:ArithmeticView DataContext="{Binding}"/>
+        </DataTemplate>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        </TextBox>
-        <TextBlock x:Name="outputBlock" Height="19"/>
-        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
-            <WindowsFormsHost Name="windowsFormsHost" Margin="0, 34, 0, 0" Height="436" Background="White">
-                <gv:GViewer x:Name="gViewer"> </gv:GViewer>
-            </WindowsFormsHost>
-        </ScrollViewer>
+        <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Background="AliceBlue">
+            <StackPanel>
+                <Button Content="Huffman" Click="HuffmanView_Clicked"/>
+                <Button Content="Arithmetic" Click="ArithmeticView_Clicked"/>
+                <Button x:Name="proceedButton" Content="Proceed"  VerticalAlignment="Bottom" Click="Proceed_Clicked"/>
+                <TextBox x:Name="inputBox" Height="20" x:FieldModifier="public" Background="FloralWhite"/>
+                <TextBlock x:Name="outputBlock" Height="20" Background="WhiteSmoke"/>
+            </StackPanel>
+        </DockPanel>
 
-    </StackPanel>
+        <ContentControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="5" Content="{Binding}" Background="White"/>
 
+    </Grid>
 
 </Window>
