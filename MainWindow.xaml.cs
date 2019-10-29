@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using Microsoft.Msagl.Drawing;
 using System.Collections.ObjectModel;
 using WPFInterop.ViewModels;
+using System.Text.RegularExpressions;
 
 namespace WPFInterop
 {
@@ -35,6 +36,7 @@ namespace WPFInterop
             DataContext = new HuffmanViewModel();
             inputBox.Clear();
             outputBlock.Text = "";
+            inputBox.MaxLength = 30;
         }
 
         private void ArithmeticView_Clicked(object sender, RoutedEventArgs e)
@@ -42,11 +44,29 @@ namespace WPFInterop
             DataContext = new ArithmeticViewModel();
             inputBox.Clear();
             outputBlock.Text = "";
+            inputBox.CharacterCasing = System.Windows.Controls.CharacterCasing.Upper;
+            inputBox.MaxLength = 7;
         }
 
         private void Proceed_Clicked(object sender, RoutedEventArgs e)
         {
           
+        }
+
+        private void TextBox_InputValidation(object sender, TextCompositionEventArgs e)
+        {
+                Regex regex = new Regex(@"^[a-zA-Z\s]+$");
+                e.Handled = !regex.IsMatch(e.Text);
+        }
+
+        private void TextBox_PreviewExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (e.Command == ApplicationCommands.Copy ||
+                e.Command == ApplicationCommands.Cut ||
+                e.Command == ApplicationCommands.Paste)
+            {
+                e.Handled = true;
+            }
         }
     }
 }

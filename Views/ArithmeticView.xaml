@@ -6,11 +6,7 @@
              xmlns:local="clr-namespace:WPFInterop.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
-        <Line  
-                X1="50" Y1="50"  
-                X2="200" Y2="200"  
-                Stroke="Red"  
-                StrokeThickness="4" />
+    <Grid x:Name="visualizationWindow" Background="White">
+        
     </Grid>
 </UserControl>

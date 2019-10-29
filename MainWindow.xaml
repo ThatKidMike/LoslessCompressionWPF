@@ -6,7 +6,7 @@
         xmlns:viewmodels="clr-namespace:WPFInterop.ViewModels"
         xmlns:views="clr-namespace:WPFInterop.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="615.417" Width="1069.143">
+        Title="MainWindow" Height="615.417" Width="1200">
 
     <Window.Resources>
         <DataTemplate x:Name="huffmanViewTemplate" DataType="{x:Type viewmodels:HuffmanViewModel}">
@@ -38,8 +38,9 @@
                 <Button Content="Huffman" Click="HuffmanView_Clicked"/>
                 <Button Content="Arithmetic" Click="ArithmeticView_Clicked"/>
                 <Button x:Name="proceedButton" Content="Proceed"  VerticalAlignment="Bottom" Click="Proceed_Clicked"/>
-                <TextBox x:Name="inputBox" Height="20" x:FieldModifier="public" Background="FloralWhite"/>
-                <TextBlock x:Name="outputBlock" Height="20" Background="WhiteSmoke"/>
+                <TextBox x:Name="inputBox" Height="20" x:FieldModifier="public" Background="FloralWhite" Text="Input" PreviewTextInput="TextBox_InputValidation" 
+                         CommandManager.PreviewExecuted="TextBox_PreviewExecuted" ContextMenu="{x:Null}"/>
+                <TextBlock x:Name="outputBlock" Height="20" Background="WhiteSmoke" Text="Output"/>
             </StackPanel>
         </DockPanel>
 

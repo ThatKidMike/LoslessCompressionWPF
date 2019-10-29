@@ -23,7 +23,6 @@ namespace WPFInterop.Views
     /// </summary>
     public partial class HuffmanView : System.Windows.Controls.UserControl
     {
-
         private ManagedHuffmanObj huffmanObj;
         private MainWindow parentWindow;
 
@@ -48,6 +47,7 @@ namespace WPFInterop.Views
                     parentWindow.proceedButton.Click += ProceedButtonClicked;
                 }
             };
+
         }
 
         private void ProceedButtonClicked(object sender, RoutedEventArgs e)
