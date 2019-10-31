@@ -17,7 +17,7 @@
         </DataTemplate>
     </Window.Resources>
     
-    <Grid>
+    <Grid x:Name="mainWindowGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -33,7 +33,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Background="AliceBlue">
+        <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Background="AliceBlue">
             <StackPanel>
                 <Button Content="Huffman" Click="HuffmanView_Clicked"/>
                 <Button Content="Arithmetic" Click="ArithmeticView_Clicked"/>
@@ -42,6 +42,51 @@
                          CommandManager.PreviewExecuted="TextBox_PreviewExecuted" ContextMenu="{x:Null}"/>
                 <TextBlock x:Name="outputBlock" Height="20" Background="WhiteSmoke" Text="Output"/>
             </StackPanel>
+        </DockPanel>
+        
+        <DockPanel x:Name="arithmeticPanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Background="AliceBlue">
+            <Grid x:Name="arithmeticPanelGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30" x:Name="signColumn"/>
+                    <ColumnDefinition Width="50" x:Name="probColumn"/>
+                    <ColumnDefinition x:Name="arithOutputColumn"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" x:Name="row_1"/>
+                    <RowDefinition Height="20" x:Name="row_2"/>
+                    <RowDefinition Height="20" x:Name="row_3"/>
+                    <RowDefinition Height="20" x:Name="row_4"/>
+                    <RowDefinition Height="20" x:Name="row_5"/>
+                    <RowDefinition Height="20" x:Name="row_6"/>
+                    <RowDefinition Height="20" x:Name="row_7"/>
+                </Grid.RowDefinitions>
+   
+                    <TextBlock Grid.Row="0" Grid.Column="0" x:Name="signRow_1" Background="GhostWhite"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" x:Name="signRow_2" Background="GhostWhite"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" x:Name="signRow_3" Background="GhostWhite"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" x:Name="signRow_4" Background="GhostWhite"/>
+                    <TextBlock Grid.Row="4" Grid.Column="0" x:Name="signRow_5" Background="GhostWhite"/>
+                    <TextBlock Grid.Row="5" Grid.Column="0" x:Name="signRow_6" Background="GhostWhite"/>
+                    <TextBlock Grid.Row="6" Grid.Column="0" x:Name="signRow_7" Background="GhostWhite"/>
+              
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="probRow_1" MaxLength="2" Visibility="Hidden"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="probRow_2" MaxLength="2" Visibility="Hidden"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="probRow_3" MaxLength="2" Visibility="Hidden"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" x:Name="probRow_4" MaxLength="2" Visibility="Hidden"/>
+                    <TextBox Grid.Row="4" Grid.Column="1" x:Name="probRow_5" MaxLength="2" Visibility="Hidden"/>
+                    <TextBox Grid.Row="5" Grid.Column="1" x:Name="probRow_6" MaxLength="2" Visibility="Hidden"/>
+                    <TextBox Grid.Row="6" Grid.Column="1" x:Name="probRow_7" MaxLength="2" Visibility="Hidden"/>
+               
+                    <TextBlock Grid.Row="0" Grid.Column="2" x:Name="outputRow_1" Background="Wheat"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" x:Name="outputRow_2" Background="Wheat"/>
+                    <TextBlock Grid.Row="2" Grid.Column="2" x:Name="outputRow_3" Background="Wheat"/>
+                    <TextBlock Grid.Row="3" Grid.Column="2" x:Name="outputRow_4" Background="Wheat"/>
+                    <TextBlock Grid.Row="4" Grid.Column="2" x:Name="outputRow_5" Background="Wheat"/>
+                    <TextBlock Grid.Row="5" Grid.Column="2" x:Name="outputRow_6" Background="Wheat"/>
+                    <TextBlock Grid.Row="6" Grid.Column="2" x:Name="outputRow_7" Background="Wheat"/>
+               
+
+            </Grid>
         </DockPanel>
 
         <ContentControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="5" Content="{Binding}" Background="White"/>

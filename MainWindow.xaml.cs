@@ -29,11 +29,13 @@ namespace WPFInterop
         public MainWindow()
         {
             InitializeComponent();
+            arithmeticPanel.Visibility = Visibility.Hidden;
         }
 
         private void HuffmanView_Clicked(object sender, RoutedEventArgs e)
         {
             DataContext = new HuffmanViewModel();
+            arithmeticPanel.Visibility = Visibility.Hidden;
             inputBox.Clear();
             outputBlock.Text = "";
             inputBox.MaxLength = 30;
@@ -42,6 +44,7 @@ namespace WPFInterop
         private void ArithmeticView_Clicked(object sender, RoutedEventArgs e)
         {
             DataContext = new ArithmeticViewModel();
+            arithmeticPanel.Visibility = Visibility.Visible;
             inputBox.Clear();
             outputBlock.Text = "";
             inputBox.CharacterCasing = System.Windows.Controls.CharacterCasing.Upper;
@@ -68,5 +71,6 @@ namespace WPFInterop
                 e.Handled = true;
             }
         }
+
     }
 }
