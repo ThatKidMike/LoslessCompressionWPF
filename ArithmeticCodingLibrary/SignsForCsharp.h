@@ -11,7 +11,7 @@ namespace ArithmeticCodingTmp {
 	private:
 		std::list<Sign>* listOfSigns;
 		std::vector<char> vecSigns;
-		std::vector<int> vecProbability;
+		std::vector<double> vecProbability;
 		std::vector<double> vecStartRange;
 		std::vector<double> vecEndRange;
 		std::vector<double> vecEncodedStart;
@@ -23,7 +23,7 @@ namespace ArithmeticCodingTmp {
 		SignsForCsharp(std::list<Sign>* listofSigns, double finalEncode);
 
 		char GetSign(int positionNumber);
-		int GetProbability(int positionNumber);
+		double GetProbability(int positionNumber);
 		double GetStartRange(int positionNumber);
 		double GetEndRange(int positionNumber);
 		double GetEncodedStart(int positionNumber);
@@ -32,7 +32,7 @@ namespace ArithmeticCodingTmp {
 		double GetFinalEncode();
 
 		std::vector<char> GetVecSigns();
-		std::vector<int> GetVecProbability();
+		std::vector<double> GetVecProbability();
 		std::vector<double> GetVecStartRange();
 		std::vector<double> GetVecEndRange();
 		std::vector<double> GetVecEncodedStart();

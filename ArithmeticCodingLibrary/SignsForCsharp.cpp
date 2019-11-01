@@ -32,7 +32,7 @@ namespace ArithmeticCodingTmp {
 		return vecSigns[positionNumber];
 	}
 
-	int SignsForCsharp::GetProbability(int positionNumber) {
+	double SignsForCsharp::GetProbability(int positionNumber) {
 		return vecProbability[positionNumber];
 	}
 
@@ -58,7 +58,7 @@ namespace ArithmeticCodingTmp {
 		return vecSigns;
 	}
 
-	std::vector<int> SignsForCsharp::GetVecProbability() {
+	std::vector<double> SignsForCsharp::GetVecProbability() {
 		return vecProbability;
 	}
 

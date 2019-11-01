@@ -8,52 +8,56 @@
 namespace ArithmeticCodingTmp {
 
 
-	ProcessInput::ProcessInput(std::string inputStream)
+	ProcessInput::ProcessInput(std::string inputStream, double listOfProbabilities[])
 		: inputStream(inputStream) {
 
-		int probLeft = 100;
-		int calculatedProb = 0;
-		double generatedRnd[100];
-		double sum = 0;
-		int newSum = 0;
+		//int probLeft = 100;
+		//int calculatedProb = 0;
+		//double generatedRnd[100];
+		//double sum = 0;
+		//int newSum = 0;
 
-		srand(time(NULL));
+		//srand(time(NULL));
 
-		for (int i = 0; i < inputStream.size() - 1; i++) {
-				
-			generatedRnd[i] = rand() % 100 + 1;
+		//for (int i = 0; i < inputStream.size() - 1; i++) {
+		//		
+		//	generatedRnd[i] = rand() % 100 + 1;
 
+		//}
+
+		//for (int i = 0; i < inputStream.size() - 1; i++) {
+
+		//	sum += generatedRnd[i];
+
+		//}
+
+		//for (int i = 0; i < inputStream.size() - 1; i++) {
+
+		//	generatedRnd[i] *= 100 / sum;
+		//}
+
+		//for (int i = 0; i < inputStream.size() - 1; i++) {
+		//	if (generatedRnd[i] < 1) {
+		//		listOfSigns.push_back(Sign(inputStream[i], std::ceil(generatedRnd[i])));
+		//	}
+		//	else {
+		//		listOfSigns.push_back(Sign(inputStream[i], generatedRnd[i]));
+		//	}
+		//}
+
+		//for (auto it = listOfSigns.begin(); it != listOfSigns.end(); it++) {
+
+		//	//it->SetProbability(it->GetProbability() - 2);
+		//	newSum += it->GetProbability();
+
+		//}
+
+
+		//listOfSigns.push_back(Sign(inputStream[inputStream.size() - 1], 100-newSum));
+
+		for (int i = 0; i < inputStream.size(); i++) {
+			listOfSigns.push_back(Sign(inputStream[i], listOfProbabilities[i]));
 		}
-
-		for (int i = 0; i < inputStream.size() - 1; i++) {
-
-			sum += generatedRnd[i];
-
-		}
-
-		for (int i = 0; i < inputStream.size() - 1; i++) {
-
-			generatedRnd[i] *= 100 / sum;
-		}
-
-		for (int i = 0; i < inputStream.size() - 1; i++) {
-			if (generatedRnd[i] < 1) {
-				listOfSigns.push_back(Sign(inputStream[i], std::ceil(generatedRnd[i])));
-			}
-			else {
-				listOfSigns.push_back(Sign(inputStream[i], generatedRnd[i]));
-			}
-		}
-
-		for (auto it = listOfSigns.begin(); it != listOfSigns.end(); it++) {
-
-			//it->SetProbability(it->GetProbability() - 2);
-			newSum += it->GetProbability();
-
-		}
-
-
-		listOfSigns.push_back(Sign(inputStream[inputStream.size() - 1], 100-newSum));
 
 		ProcessCompression* pc = new ProcessCompression(&listOfSigns);
 
@@ -100,7 +104,6 @@ namespace ArithmeticCodingTmp {
 	double ProcessInput::GetVecEncodedEnd(int positionNumber) {
 		return vectorEncodedEnd[positionNumber];
 	}
-
 
 	std::string ProcessInput::GetInputStream() {
 		return this->inputStream;

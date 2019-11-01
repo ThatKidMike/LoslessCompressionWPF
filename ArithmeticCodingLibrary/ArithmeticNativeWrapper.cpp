@@ -1,8 +1,8 @@
 #include "ArithmeticNativeWrapper.h"
 
-extern "C" LIBRARY_EXPORT ArithmeticCodingTmp::ProcessInput* new_ProcessInput(const char *str) {
+extern "C" LIBRARY_EXPORT ArithmeticCodingTmp::ProcessInput* new_ProcessInput(const char *str, double probabilities[]) {
 	std::string inputStream = str;
-	return new ArithmeticCodingTmp::ProcessInput(str);
+	return new ArithmeticCodingTmp::ProcessInput(str, probabilities);
 }
 
 extern "C" LIBRARY_EXPORT void delete_ProcessInput(ArithmeticCodingTmp::ProcessInput* instance) {

@@ -3,7 +3,7 @@
 namespace ArithmeticCodingTmp {
 
 
-	Sign::Sign(char sign, int probability)
+	Sign::Sign(char sign, double probability)
 		: sign(sign), probability(probability) {
 
 	}
@@ -16,7 +16,7 @@ namespace ArithmeticCodingTmp {
 		return sign;
 	}
 
-	int Sign::GetProbability() {
+	double Sign::GetProbability() {
 		return probability;
 	}
 

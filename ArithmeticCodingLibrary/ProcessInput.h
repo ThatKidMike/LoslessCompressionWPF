@@ -15,7 +15,7 @@ namespace ArithmeticCodingTmp {
 		std::list<Sign> listOfSigns;
 
 		std::vector<char> vectorChar;
-		std::vector<int> vectorProbability;
+		std::vector<double> vectorProbability;
 		std::vector<double> vectorStartRange;
 		std::vector<double> vectorEndRange;
 		std::vector<double> vectorEncodedStart;
@@ -24,7 +24,7 @@ namespace ArithmeticCodingTmp {
 		double finalEncode;
 
 	public:
-		ProcessInput(std::string inputStream);
+		ProcessInput(std::string inputStream, double listOfProbabilities[]);
 		~ProcessInput(void);
 
 		std::string GetInputStream();

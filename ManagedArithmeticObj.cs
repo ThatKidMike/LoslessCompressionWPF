@@ -9,9 +9,9 @@ namespace WPFInterop
 
         private IntPtr native_arithmetic_instance;
 
-        public ManagedArithmeticObj(string inputStream)
+        public ManagedArithmeticObj(string inputStream, double[] probabilities)
         {
-            native_arithmetic_instance = CsharpWrapper.new_ProcessInput(inputStream);
+            native_arithmetic_instance = CsharpWrapper.new_ProcessInput(inputStream, probabilities);
         }
 
         public void delete()

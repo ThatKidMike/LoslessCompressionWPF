@@ -6,17 +6,17 @@ namespace ArithmeticCodingTmp {
 
 	private:
 		char sign;
-		int probability;
+		double probability;
 		double startRange = 0;
 		double endRange = 1;
 		double encodedStart;
 		double encodedEnd;
 	public:
-		Sign(char sign, int probability);
+		Sign(char sign, double probability);
 		~Sign(void);
 
 		char GetSign();
-		int GetProbability();
+		double GetProbability();
 
 		double GetStartRange();
 		double GetEndRange();

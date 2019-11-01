@@ -12,15 +12,15 @@ namespace ArithmeticCodingTmp {
 		double previousProb = 0.0;
 
 		it->SetStartRange(0.0);
-		it->SetEndRange((double)it->GetProbability() / 100);
+		it->SetEndRange(it->GetProbability());
 		previousProb = it->GetEndRange();
-		cumulativeProb += ((double)it->GetProbability() / 100);
+		cumulativeProb += (it->GetProbability());
 		it++;
 
 		for (it; it != listOfSigns->end(); it++) {
 
 			it->SetStartRange(previousProb);
-			cumulativeProb += ((double)it->GetProbability() / 100);
+			cumulativeProb += (it->GetProbability());
 			it->SetEndRange(cumulativeProb);
 			previousProb = it->GetEndRange();
 			
