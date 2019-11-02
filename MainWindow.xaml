@@ -79,14 +79,15 @@
                     <TextBox Grid.Row="6" Grid.Column="1" x:Name="probRow_7" MaxLength="2" Visibility="Hidden"/>
                 
                     <TextBlock Grid.Row="7" Grid.Column="1" x:Name="sumRow" Background="IndianRed"/>
-               
-                    <TextBlock Grid.Row="0" Grid.Column="2" x:Name="outputRow_1" Background="Wheat"/>
-                    <TextBlock Grid.Row="1" Grid.Column="2" x:Name="outputRow_2" Background="Wheat"/>
-                    <TextBlock Grid.Row="2" Grid.Column="2" x:Name="outputRow_3" Background="Wheat"/>
-                    <TextBlock Grid.Row="3" Grid.Column="2" x:Name="outputRow_4" Background="Wheat"/>
-                    <TextBlock Grid.Row="4" Grid.Column="2" x:Name="outputRow_5" Background="Wheat"/>
-                    <TextBlock Grid.Row="5" Grid.Column="2" x:Name="outputRow_6" Background="Wheat"/>
-                    <TextBlock Grid.Row="6" Grid.Column="2" x:Name="outputRow_7" Background="Wheat"/>
+                    <TextBlock Grid.Column="2" Grid.Row="7" Text=" Probability sum"/>
+
+                    <TextBlock Grid.Row="0" Grid.Column="2" x:Name="outputRow_1" Background="LightSteelBlue"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" x:Name="outputRow_2" Background="LightSteelBlue"/>
+                    <TextBlock Grid.Row="2" Grid.Column="2" x:Name="outputRow_3" Background="LightSteelBlue"/>
+                    <TextBlock Grid.Row="3" Grid.Column="2" x:Name="outputRow_4" Background="LightSteelBlue"/>
+                    <TextBlock Grid.Row="4" Grid.Column="2" x:Name="outputRow_5" Background="LightSteelBlue"/>
+                    <TextBlock Grid.Row="5" Grid.Column="2" x:Name="outputRow_6" Background="LightSteelBlue"/>
+                    <TextBlock Grid.Row="6" Grid.Column="2" x:Name="outputRow_7" Background="LightSteelBlue"/>
                
 
             </Grid>

@@ -168,7 +168,10 @@ namespace WPFInterop.Views
                 tb.Text = "0." + tb.Text;
 
             if (tb.Text == "0.00")
-                tb.Text = "0.01";
+                tb.Text = "0.05";
+
+            if (double.Parse(tb.Text, System.Globalization.CultureInfo.InvariantCulture) < 0.05)
+                tb.Text = "0.05";
 
             ValidationToProcess(sender);
         }
@@ -186,6 +189,7 @@ namespace WPFInterop.Views
                 visualizationWindow.Children.Clear();
                 double[] probabilities = new double[parentWindow.inputBox.Text.Length];
                 int i = 0;
+                int j = 0;
                 foreach (TextBox tb in parentWindow.arithmeticPanelGrid.Children.OfType<TextBox>())
                 {
                     if (tb.IsVisible)
@@ -199,6 +203,18 @@ namespace WPFInterop.Views
                 arithmeticObj = new ManagedArithmeticObj(parentWindow.inputBox.Text, probabilities);
                 DrawInitialLines(parentWindow.inputBox.Text.Length);
                 DrawHorizontalLines(parentWindow.inputBox.Text.Length);
+
+                foreach (TextBox tb in parentWindow.arithmeticPanelGrid.Children.OfType<TextBox>())
+                {
+                    if (tb.IsVisible)
+                    {
+                        TextBlock tblock = (TextBlock)parentWindow.arithmeticPanelGrid.Children.OfType<TextBlock>().Where(x => x.Name.Contains("output"))
+                            .Cast<UIElement>().First(a => Grid.GetRow(a) == Grid.GetRow(tb) && Grid.GetColumn(a) == 2);
+                        tblock.Text = "[" + arithmeticObj.GetEncodedStart(j) + " : " + arithmeticObj.GetEncodedEnd(j) + "]";
+                        j++;
+                    }
+                }
+
                 arithmeticObj.delete();
             }
         }
@@ -232,6 +248,9 @@ namespace WPFInterop.Views
                                            .Cast<UIElement>()
                                            .First(element => Grid.GetRow(element) == row && Grid.GetColumn(element) == 1);
                            tbox.Visibility = Visibility.Hidden;
+                           TextBlock tblock = (TextBlock)parentWindow.arithmeticPanelGrid.Children.OfType<TextBlock>().Where(x => x.Name.Contains("output"))
+                                              .Cast<UIElement>().First(a => Grid.GetRow(a) == Grid.GetRow(tbox) && Grid.GetColumn(a) == 2);
+                           tblock.Text = "";
                     }
                             
                     }
@@ -259,12 +278,12 @@ namespace WPFInterop.Views
                     Y1 = y1,
                     Y2 = y2,
                     Stroke = Brushes.Black,
-                    StrokeThickness = 4
-                };
+            };
 
                 visualizationWindow.Children.Add(newLine);
             }
-        }
+
+    }
 
         private void DrawHorizontalLines(int howManySigns)
         {
@@ -283,10 +302,11 @@ namespace WPFInterop.Views
                 x1 += spacing;
                 x2 += spacing;
 
-                for (int i = 1; i < howManySigns; i++)
+                for (int i = 0; i < howManySigns; i++)
                 {
      
-                    gotY = (int)Math.Floor((pointOfReference * arithmeticObj.GetStartRange(i))) + visualEqualizer;
+                    if (i + 1 != howManySigns)
+                    gotY = (int)Math.Floor((pointOfReference * arithmeticObj.GetStartRange(i + 1))) + visualEqualizer;
 
                     Line newLine = new Line
                     {
@@ -295,17 +315,11 @@ namespace WPFInterop.Views
                         Y1 = gotY,
                         Y2 = gotY,
                         Stroke = Brushes.Black,
-                        StrokeThickness = 4
+                        StrokeThickness = 3
                     };
 
                     visualizationWindow.Children.Add(newLine);
 
-                }
-
-               
-                for (int i = 0; i < howManySigns; i++)
-                {
-                    DrawSign(i, (int)Math.Ceiling((pointOfReference * arithmeticObj.GetStartRange(i))), (int)Math.Ceiling((pointOfReference * arithmeticObj.GetEndRange(i))), signPosX);
                 }
 
                 signPosX += spacing;
@@ -317,7 +331,7 @@ namespace WPFInterop.Views
                     Y1 = 500,
                     Y2 = 500,
                     Stroke = Brushes.Black,
-                    StrokeThickness = 4
+                    StrokeThickness = 3
                 };
 
                 visualizationWindow.Children.Add(startLine);
@@ -329,29 +343,68 @@ namespace WPFInterop.Views
                     Y1 = 50,
                     Y2 = 50,
                     Stroke = Brushes.Black,
-                    StrokeThickness = 4
+                    StrokeThickness = 3
                 };
 
                 visualizationWindow.Children.Add(endLine);
 
+                if (j != howManySigns)
+                DrawDottedLine(x1, x2, ((int)Math.Floor((pointOfReference * arithmeticObj.GetStartRange(j))) + visualEqualizer),
+                                  ((int)Math.Floor((pointOfReference * arithmeticObj.GetEndRange(j))) + visualEqualizer));
+
             }
         }
 
-        private void DrawSign(int wichSign, int startY, int endY, int currentX)
+        private void DrawDottedLine(int x1, int x2, int y1, int y2)
         {
-            Rectangle tb = new Rectangle
+
+            Line initialLineStart = new Line
             {
-                Height = 10,
-                Width = 10,
-                Fill = Brushes.Black
+                StrokeDashArray = new DoubleCollection() { 2, 4 },
+                X1 = x1,
+                X2 = x1 + 18,
+                Y1 = y1,
+                Y2 = y1,
+                Stroke = Brushes.Black
             };
 
-            int actualY = ((startY - endY)/2) + 50;
-            int actualX = currentX + 50;
+            Line theLineStart = new Line
+            {
+                StrokeDashArray = new DoubleCollection() { 2, 4 },
+                X1 = x1 + 18,
+                X2 = x2 + 100,
+                Y1 = y1,
+                Y2 = 50,
+                Stroke = Brushes.Black
+            };
 
-            visualizationWindow.Children.Add(tb);
-            Canvas.SetLeft(tb, actualY);
-            Canvas.SetBottom(tb, actualX);
+            visualizationWindow.Children.Add(initialLineStart);
+            visualizationWindow.Children.Add(theLineStart);
+
+            Line initialLineEnd = new Line
+            {
+                StrokeDashArray = new DoubleCollection() { 2, 4 },
+                X1 = x1,
+                X2 = x1 + 18,
+                Y1 = y2,
+                Y2 = y2,
+                Stroke = Brushes.Black
+            };
+
+            Line theLineEnd = new Line
+            {
+                StrokeDashArray = new DoubleCollection() { 2, 4 },
+                X1 = x1 + 18,
+                X2 = x2 + 100,
+                Y1 = y2,
+                Y2 = 500,
+                Stroke = Brushes.Black
+            };
+
+            visualizationWindow.Children.Add(initialLineEnd);
+            visualizationWindow.Children.Add(theLineEnd);
+
+            
 
         }
 
