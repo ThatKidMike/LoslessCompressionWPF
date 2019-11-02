@@ -59,6 +59,7 @@
                     <RowDefinition Height="20" x:Name="row_5"/>
                     <RowDefinition Height="20" x:Name="row_6"/>
                     <RowDefinition Height="20" x:Name="row_7"/>
+                    <RowDefinition Height="20" x:Name="row_8"/>
                 </Grid.RowDefinitions>
    
                     <TextBlock Grid.Row="0" Grid.Column="0" x:Name="signRow_1" Background="GhostWhite"/>
@@ -76,6 +77,8 @@
                     <TextBox Grid.Row="4" Grid.Column="1" x:Name="probRow_5" MaxLength="2" Visibility="Hidden"/>
                     <TextBox Grid.Row="5" Grid.Column="1" x:Name="probRow_6" MaxLength="2" Visibility="Hidden"/>
                     <TextBox Grid.Row="6" Grid.Column="1" x:Name="probRow_7" MaxLength="2" Visibility="Hidden"/>
+                
+                    <TextBlock Grid.Row="7" Grid.Column="1" x:Name="sumRow" Background="IndianRed"/>
                
                     <TextBlock Grid.Row="0" Grid.Column="2" x:Name="outputRow_1" Background="Wheat"/>
                     <TextBlock Grid.Row="1" Grid.Column="2" x:Name="outputRow_2" Background="Wheat"/>

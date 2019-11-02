@@ -122,17 +122,24 @@ namespace WPFInterop.Views
                 if (tb.IsVisible)
                 {
                     if (tb.Text == "")
-                        return;
+                        break;
 
                     sum += double.Parse(tb.Text, System.Globalization.CultureInfo.InvariantCulture);
 
                 }
             }
 
-            parentWindow.outputRow_1.Text = sum.ToString();
+            parentWindow.sumRow.Text = sum.ToString();
+            sum = double.Parse(parentWindow.sumRow.Text, System.Globalization.CultureInfo.InvariantCulture);
 
-            if (sum == 1.0)
+            if (sum == 1)
+            {
                 parentWindow.proceedButton.IsEnabled = true;
+                parentWindow.sumRow.Background = Brushes.ForestGreen;
+            } else
+            {
+                parentWindow.sumRow.Background = Brushes.IndianRed;
+            }
         }
 
         private void EnterPressed(object sender, KeyEventArgs e)
@@ -141,7 +148,6 @@ namespace WPFInterop.Views
             {
                 TextBox tb = (TextBox)sender;
                 tb.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-                ValidationToProcess(sender);
             }
         }
 
@@ -184,6 +190,7 @@ namespace WPFInterop.Views
                 {
                     if (tb.IsVisible)
                     {
+                        double it = double.Parse(tb.Text, System.Globalization.CultureInfo.InvariantCulture); 
                         probabilities[i] = double.Parse(tb.Text, System.Globalization.CultureInfo.InvariantCulture);
                         i++;
                     }
@@ -261,70 +268,92 @@ namespace WPFInterop.Views
 
         private void DrawHorizontalLines(int howManySigns)
         {
-            int pointOfReference = 500;
-            int currentYStart = 500;
-            int currentYEnd = 500;
+            int pointOfReference = 450;
+            int visualEqualizer = 50;
+            int gotY = 0;
             int spacing = 100;
             int x1 = 35;
             int x2 = 10;
             int y1 = 500;
             int y2 = 500;
+            int signPosX = 0;
 
             for (int j = 0; j <= howManySigns; j++)
             {
                 x1 += spacing;
                 x2 += spacing;
-                currentYStart = 500;
-                currentYEnd = 500;
 
-                for (int i = 0; i < howManySigns; i++)
+                for (int i = 1; i < howManySigns; i++)
                 {
-
-                    currentYStart = pointOfReference - (int)(pointOfReference * arithmeticObj.GetStartRange(i));
-                    if (currentYStart < 50)
-                        currentYStart += 50;
-
-                    y1 = currentYStart;
-                    y2 = currentYStart;
+     
+                    gotY = (int)Math.Floor((pointOfReference * arithmeticObj.GetStartRange(i))) + visualEqualizer;
 
                     Line newLine = new Line
-                    { 
+                    {
                         X1 = x1,
                         X2 = x2,
-                        Y1 = y1,
-                        Y2 = y2,
+                        Y1 = gotY,
+                        Y2 = gotY,
                         Stroke = Brushes.Black,
                         StrokeThickness = 4
-                        
                     };
 
                     visualizationWindow.Children.Add(newLine);
 
-                    currentYEnd = pointOfReference - (int)(pointOfReference * arithmeticObj.GetEndRange(i));
-                    if (currentYEnd < 50)
-                        currentYEnd += 50;
-
-                    y1 = currentYEnd;
-                    y2 = currentYEnd;
-
-                    Line newLineSecond = new Line
-                    {
-                        X1 = x1,
-                        X2 = x2,
-                        Y1 = y1,
-                        Y2 = y2,
-                        Stroke = Brushes.Black,
-                        StrokeThickness = 4
-
-                    };
-
-                    visualizationWindow.Children.Add(newLineSecond);
-
                 }
 
-            }
+               
+                for (int i = 0; i < howManySigns; i++)
+                {
+                    DrawSign(i, (int)Math.Ceiling((pointOfReference * arithmeticObj.GetStartRange(i))), (int)Math.Ceiling((pointOfReference * arithmeticObj.GetEndRange(i))), signPosX);
+                }
 
+                signPosX += spacing;
+
+                Line startLine = new Line
+                {
+                    X1 = x1,
+                    X2 = x2,
+                    Y1 = 500,
+                    Y2 = 500,
+                    Stroke = Brushes.Black,
+                    StrokeThickness = 4
+                };
+
+                visualizationWindow.Children.Add(startLine);
+
+                Line endLine = new Line
+                {
+                    X1 = x1,
+                    X2 = x2,
+                    Y1 = 50,
+                    Y2 = 50,
+                    Stroke = Brushes.Black,
+                    StrokeThickness = 4
+                };
+
+                visualizationWindow.Children.Add(endLine);
+
+            }
+        }
+
+        private void DrawSign(int wichSign, int startY, int endY, int currentX)
+        {
+            Rectangle tb = new Rectangle
+            {
+                Height = 10,
+                Width = 10,
+                Fill = Brushes.Black
+            };
+
+            int actualY = ((startY - endY)/2) + 50;
+            int actualX = currentX + 50;
+
+            visualizationWindow.Children.Add(tb);
+            Canvas.SetLeft(tb, actualY);
+            Canvas.SetBottom(tb, actualX);
 
         }
+
     }
 }

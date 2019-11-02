@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:WPFInterop.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid x:Name="visualizationWindow" Background="White">
+    <Canvas x:Name="visualizationWindow" Background="White">
 
 
-    </Grid>
+    </Canvas>
 </UserControl>
