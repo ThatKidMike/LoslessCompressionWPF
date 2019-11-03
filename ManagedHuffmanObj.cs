@@ -184,8 +184,6 @@ namespace WPFInterop
 
             return graph;
 
-
-
         }
 
         public Dictionary<string, string> GetCodedSigns()

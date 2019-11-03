@@ -30,23 +30,25 @@ namespace WPFInterop
         {
             InitializeComponent();
             arithmeticPanel.Visibility = Visibility.Hidden;
+            huffmanPanel.Visibility = Visibility.Hidden;
         }
 
         private void HuffmanView_Clicked(object sender, RoutedEventArgs e)
         {
             DataContext = new HuffmanViewModel();
-            arithmeticPanel.Visibility = Visibility.Hidden;
+            arithmeticPanel.Visibility = Visibility.Collapsed;
+            huffmanPanel.Visibility = Visibility.Visible;
             inputBox.Clear();
-            outputBlock.Text = "";
-            inputBox.MaxLength = 30;
+            inputBox.CharacterCasing = System.Windows.Controls.CharacterCasing.Normal;
+            inputBox.MaxLength = 50;
         }
 
         private void ArithmeticView_Clicked(object sender, RoutedEventArgs e)
         {
             DataContext = new ArithmeticViewModel();
+            huffmanPanel.Visibility = Visibility.Collapsed;
             arithmeticPanel.Visibility = Visibility.Visible;
             inputBox.Clear();
-            outputBlock.Text = "";
             inputBox.CharacterCasing = System.Windows.Controls.CharacterCasing.Upper;
             inputBox.MaxLength = 7;
         }

@@ -44,10 +44,20 @@ namespace WPFInterop.Views
                 parentWindow = Window.GetWindow(this) as MainWindow;
                 if (parentWindow != null)
                 {
+                    parentWindow.inputBox.TextChanged += CheckIfReadyToGo;
                     parentWindow.proceedButton.Click += ProceedButtonClicked;
+                    parentWindow.proceedButton.IsEnabled = false;
                 }
             };
 
+        }
+
+        private void CheckIfReadyToGo(object sender, TextChangedEventArgs e)
+        {
+            if (parentWindow.inputBox.Text.Length >= 3)
+                parentWindow.proceedButton.IsEnabled = true;
+            else
+                parentWindow.proceedButton.IsEnabled = false;
         }
 
         private void ProceedButtonClicked(object sender, RoutedEventArgs e)
@@ -116,7 +126,9 @@ namespace WPFInterop.Views
                     string code = huffmanObj.GetCodedSigns()[selectedNode.LabelText];
                     if (code != null)
                     {
-                        parentWindow.outputBlock.Text = selectedNode.LabelText + " :: " + code;
+                        //parentWindow.outputBlock.Text = selectedNode.LabelText + " :: " + code;
+                        parentWindow.huffmanCodedSpace.Text = code;
+                        parentWindow.huffmanSignSpace.Text = selectedNode.LabelText;
                     }
 
                 }

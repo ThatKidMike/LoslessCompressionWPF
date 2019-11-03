@@ -132,7 +132,7 @@ namespace WPFInterop.Views
             parentWindow.sumRow.Text = sum.ToString();
             sum = double.Parse(parentWindow.sumRow.Text, System.Globalization.CultureInfo.InvariantCulture);
 
-            if (sum == 1)
+            if (sum == 1 && parentWindow.inputBox.Text.Length >= 2)
             {
                 parentWindow.proceedButton.IsEnabled = true;
                 parentWindow.sumRow.Background = Brushes.ForestGreen;
