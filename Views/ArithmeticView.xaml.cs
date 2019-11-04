@@ -24,6 +24,7 @@ namespace WPFInterop.Views
     {
         private MainWindow parentWindow;
         private ManagedArithmeticObj arithmeticObj;
+        private double sum = 0.0;
 
         public ArithmeticView()
         {
@@ -83,8 +84,11 @@ namespace WPFInterop.Views
                     visualizationWindow.MouseDown += LoseFocus;
 
                     parentWindow.proceedButton.IsEnabled = false;
+
                 }
             };
+
+            sum = 0.0;
 
         }
 
@@ -103,6 +107,27 @@ namespace WPFInterop.Views
             parentWindow.probRow_5.Clear();
             parentWindow.probRow_6.Clear();
             parentWindow.probRow_7.Clear();
+            parentWindow.outputRow_1.Text = "";
+            parentWindow.outputRow_2.Text = "";
+            parentWindow.outputRow_3.Text = "";
+            parentWindow.outputRow_4.Text = "";
+            parentWindow.outputRow_5.Text = "";
+            parentWindow.outputRow_6.Text = "";
+            parentWindow.outputRow_7.Text = "";
+
+            foreach (TextBlock tblock in parentWindow.arithmeticPanelGrid.Children.OfType<TextBlock>().Where(x => x.Name.Contains("sign")).ToList()) {
+                tblock.Text = "";
+                tblock.Visibility = Visibility.Hidden;
+                TextBox tbox = (TextBox)parentWindow.arithmeticPanelGrid.Children
+                                           .Cast<UIElement>()
+                                           .First(element => Grid.GetRow(element) == Grid.GetRow(tblock) && Grid.GetColumn(element) == 1);
+                tbox.Visibility = Visibility.Hidden;
+            }
+
+            foreach (TextBlock tblock in parentWindow.arithmeticPanelGrid.Children.OfType<TextBlock>().Where(x => x.Name.Contains("sign")).ToList())
+            {
+                tblock.Visibility = Visibility.Visible;
+            }
 
         }
 
@@ -113,31 +138,40 @@ namespace WPFInterop.Views
 
         private void ValidationToProcess(object sender)
         {
-            parentWindow.proceedButton.IsEnabled = false;
 
-            double sum = 0.0;
+            sum = 0.0;
+            bool someEmpty = false;
+
+            parentWindow.proceedButton.IsEnabled = false;
 
             foreach (TextBox tb in parentWindow.arithmeticPanelGrid.Children.OfType<TextBox>())
             {
                 if (tb.IsVisible)
                 {
-                    if (tb.Text == "")
-                        break;
-
+                    if (tb.Text != "")
                     sum += double.Parse(tb.Text, System.Globalization.CultureInfo.InvariantCulture);
-
                 }
             }
 
             parentWindow.sumRow.Text = sum.ToString();
             sum = double.Parse(parentWindow.sumRow.Text, System.Globalization.CultureInfo.InvariantCulture);
 
-            if (sum == 1 && parentWindow.inputBox.Text.Length >= 2)
+            foreach (TextBox tb in parentWindow.arithmeticPanelGrid.Children.OfType<TextBox>())
+            {
+                if (tb.IsVisible)
+                {
+                    if (tb.Text == "")
+                        someEmpty = true;              
+                }
+            }
+
+            if (sum == 1 && parentWindow.inputBox.Text.Length >= 2 && !someEmpty)
             {
                 parentWindow.proceedButton.IsEnabled = true;
                 parentWindow.sumRow.Background = Brushes.ForestGreen;
             } else
             {
+                parentWindow.proceedButton.IsEnabled = false;
                 parentWindow.sumRow.Background = Brushes.IndianRed;
             }
         }
@@ -170,6 +204,7 @@ namespace WPFInterop.Views
             if (tb.Text == "0.00")
                 tb.Text = "0.05";
 
+            if (tb.Text.Length != 0)
             if (double.Parse(tb.Text, System.Globalization.CultureInfo.InvariantCulture) < 0.05)
                 tb.Text = "0.05";
 
@@ -254,7 +289,9 @@ namespace WPFInterop.Views
                     }
                             
                     }
-                
+
+                ValidationToProcess(sender);
+
             }
         }
 
@@ -277,13 +314,24 @@ namespace WPFInterop.Views
                     X2 = x2,
                     Y1 = y1,
                     Y2 = y2,
-                    Stroke = Brushes.Black,
-            };
-
+                    Stroke = Brushes.Black
+                };
+                Canvas.SetLeft(newLine, 0);
+                Canvas.SetTop(newLine, 0);
                 visualizationWindow.Children.Add(newLine);
-            }
 
-    }
+            }
+        }
+
+        private int CalculateSignY(int signPos)
+        {
+            int pointOfReference = 450;
+            int visualEqualizer = 50;
+            int calculatedValue = (((int)Math.Floor((pointOfReference * arithmeticObj.GetEndRange(signPos))) -
+                    (int)Math.Floor((pointOfReference * arithmeticObj.GetStartRange(signPos)))) / 2
+                + visualEqualizer) + (int)Math.Floor((pointOfReference * arithmeticObj.GetStartRange(signPos)));
+            return calculatedValue;
+        }
 
         private void DrawHorizontalLines(int howManySigns)
         {
@@ -296,17 +344,19 @@ namespace WPFInterop.Views
             int y1 = 500;
             int y2 = 500;
             int signPosX = 0;
+            int signX = -5;
 
             for (int j = 0; j <= howManySigns; j++)
             {
                 x1 += spacing;
                 x2 += spacing;
+                signX += spacing;
 
                 for (int i = 0; i < howManySigns; i++)
                 {
-     
+
                     if (i + 1 != howManySigns)
-                    gotY = (int)Math.Floor((pointOfReference * arithmeticObj.GetStartRange(i + 1))) + visualEqualizer;
+                        gotY = (int)Math.Floor((pointOfReference * arithmeticObj.GetStartRange(i + 1))) + visualEqualizer;
 
                     Line newLine = new Line
                     {
@@ -318,9 +368,54 @@ namespace WPFInterop.Views
                         StrokeThickness = 3
                     };
 
+                    Canvas.SetLeft(newLine, 0);
+                    Canvas.SetTop(newLine, 0);
                     visualizationWindow.Children.Add(newLine);
 
+                    for (int k = 0; k < howManySigns; k++)
+                    {
+                        if (j != howManySigns)
+                        {
+                            TextBlock signChar = new TextBlock()
+                            {
+                                Text = arithmeticObj.GetChar(k).ToString()
+                            };
+
+                            if (k == j)
+                                signChar.FontWeight = FontWeights.ExtraBold;
+
+                            Canvas.SetLeft(signChar, signX);
+                            Canvas.SetTop(signChar, CalculateSignY(k));
+                            visualizationWindow.Children.Add(signChar);
+                        }
+                    }
+
                 }
+
+                    if (j != howManySigns)
+                    {
+                        TextBlock probStart = new TextBlock()
+                        {
+                            Text = arithmeticObj.GetEncodedStart(j).ToString()
+                        };
+
+                        Canvas.SetLeft(probStart, signX + 120);
+                        Canvas.SetTop(probStart, 50);
+                        visualizationWindow.Children.Add(probStart);
+
+                        TextBlock probEnd = new TextBlock()
+                        {
+                            Text = arithmeticObj.GetEncodedEnd(j).ToString()
+                        };
+
+                        Canvas.SetLeft(probEnd, signX + 120);
+                        Canvas.SetTop(probEnd, 500);
+                        visualizationWindow.Children.Add(probEnd);
+                    }
+
+                    if (j == 0) 
+                    { 
+                
 
                 signPosX += spacing;
 
@@ -334,6 +429,8 @@ namespace WPFInterop.Views
                     StrokeThickness = 3
                 };
 
+                Canvas.SetLeft(startLine, 0);
+                Canvas.SetTop(startLine, 0);
                 visualizationWindow.Children.Add(startLine);
 
                 Line endLine = new Line
@@ -346,6 +443,8 @@ namespace WPFInterop.Views
                     StrokeThickness = 3
                 };
 
+                Canvas.SetLeft(endLine, 0);
+                Canvas.SetTop(endLine, 0);
                 visualizationWindow.Children.Add(endLine);
 
                 if (j != howManySigns)
@@ -378,6 +477,10 @@ namespace WPFInterop.Views
                 Stroke = Brushes.Black
             };
 
+            Canvas.SetLeft(initialLineStart, 0);
+            Canvas.SetTop(initialLineStart, 0);
+            Canvas.SetLeft(theLineStart, 0);
+            Canvas.SetTop(theLineStart, 0);
             visualizationWindow.Children.Add(initialLineStart);
             visualizationWindow.Children.Add(theLineStart);
 
@@ -401,10 +504,12 @@ namespace WPFInterop.Views
                 Stroke = Brushes.Black
             };
 
+            Canvas.SetLeft(initialLineEnd, 0);
+            Canvas.SetTop(initialLineEnd, 0);
+            Canvas.SetLeft(theLineEnd, 0);
+            Canvas.SetTop(theLineEnd, 0);
             visualizationWindow.Children.Add(initialLineEnd);
             visualizationWindow.Children.Add(theLineEnd);
-
-            
 
         }
 

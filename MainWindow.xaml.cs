@@ -38,6 +38,8 @@ namespace WPFInterop
             DataContext = new HuffmanViewModel();
             arithmeticPanel.Visibility = Visibility.Collapsed;
             huffmanPanel.Visibility = Visibility.Visible;
+            huffmanButton.IsEnabled = false;
+            arithmeticButton.IsEnabled = true;
             inputBox.Clear();
             inputBox.CharacterCasing = System.Windows.Controls.CharacterCasing.Normal;
             inputBox.MaxLength = 50;
@@ -48,6 +50,8 @@ namespace WPFInterop
             DataContext = new ArithmeticViewModel();
             huffmanPanel.Visibility = Visibility.Collapsed;
             arithmeticPanel.Visibility = Visibility.Visible;
+            huffmanButton.IsEnabled = true;
+            arithmeticButton.IsEnabled = false;
             inputBox.Clear();
             inputBox.CharacterCasing = System.Windows.Controls.CharacterCasing.Upper;
             inputBox.MaxLength = 7;

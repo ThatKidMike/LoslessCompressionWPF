@@ -19,11 +19,11 @@
 
     <Grid x:Name="mainWindowGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="285*"/>
+            <ColumnDefinition Width="191*"/>
+            <ColumnDefinition Width="239*"/>
+            <ColumnDefinition Width="239*"/>
+            <ColumnDefinition Width="238*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -33,17 +33,24 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Background="AliceBlue" Grid.ColumnSpan="2" Margin="0,0,188,0">
-            <StackPanel Width="286">
-                <Button Content="Huffman" Click="HuffmanView_Clicked"/>
-                <Button Content="Arithmetic" Click="ArithmeticView_Clicked"/>
-                <Button x:Name="proceedButton" Content="Proceed"  VerticalAlignment="Bottom" Click="Proceed_Clicked"/>
-                <TextBox x:Name="inputBox" Height="20" x:FieldModifier="public" Background="FloralWhite" Text="Input" PreviewTextInput="TextBox_InputValidation" 
-                         CommandManager.PreviewExecuted="TextBox_PreviewExecuted" ContextMenu="{x:Null}"/>
-            </StackPanel>
-        </DockPanel>
+        <Grid Background="AliceBlue">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Huffman" Click="HuffmanView_Clicked" x:Name="huffmanButton" Grid.Row="0" Grid.Column="0"/>
+            <Button Content="Arithmetic" Click="ArithmeticView_Clicked" x:Name="arithmeticButton" Grid.Row="1" Grid.Column="0"/>
+            <Button x:Name="proceedButton" Content="Proceed"  VerticalAlignment="Bottom" Click="Proceed_Clicked" Grid.Row="3" Grid.Column="0"/>
+            <TextBox x:Name="inputBox" Height="20" x:FieldModifier="public" Background="FloralWhite" Text="Input" PreviewTextInput="TextBox_InputValidation" 
+                         CommandManager.PreviewExecuted="TextBox_PreviewExecuted" ContextMenu="{x:Null}" Grid.Row="2" Grid.Column="0"/>
+        </Grid>
 
-        <DockPanel x:Name="huffmanPanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Background="AliceBlue" Grid.ColumnSpan="2" Margin="0,0,188,0">
+        <DockPanel x:Name="huffmanPanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Background="AliceBlue" Margin="0,0,1,0">
             <Grid x:Name="huffmanPanelGridFirst">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20" x:Name="huffRow_1"/>
@@ -67,8 +74,8 @@
             </Grid>
         </DockPanel>
 
-        
-        <DockPanel x:Name="arithmeticPanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Background="AliceBlue" Grid.ColumnSpan="2" Margin="0,0,188,0" Visibility="Collapsed">
+
+        <DockPanel x:Name="arithmeticPanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Background="AliceBlue" Margin="0,0,1,0" Visibility="Collapsed">
             <Grid x:Name="arithmeticPanelGrid">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30" x:Name="signColumn"/>
@@ -117,7 +124,7 @@
             </Grid>
         </DockPanel>
 
-        <ContentControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="5" Content="{Binding}" Background="White" Margin="50,0,0,0"/>
+        <ContentControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="5" Content="{Binding}" Background="White"/>
 
     </Grid>
 

@@ -138,7 +138,6 @@ namespace WPFInterop.Views
                 ex.ToString();
             }
 
-
         }
     }
 }
