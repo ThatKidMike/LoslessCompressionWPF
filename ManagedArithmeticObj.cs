@@ -24,7 +24,7 @@ namespace WPFInterop
             return CsharpWrapper.new_GetSign(native_arithmetic_instance, positionNumber);
         }
 
-        public int GetProbability(int positionNumber)
+        public double GetProbability(int positionNumber)
         {
             return CsharpWrapper.new_GetProbability(native_arithmetic_instance, positionNumber);
         }

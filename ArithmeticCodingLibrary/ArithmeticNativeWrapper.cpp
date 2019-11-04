@@ -13,7 +13,7 @@ extern "C" LIBRARY_EXPORT char new_GetSign(ArithmeticCodingTmp::ProcessInput* in
 	return instance->GetVecSign(numPosition);
 }
 
-extern "C" LIBRARY_EXPORT int new_GetProbability(ArithmeticCodingTmp::ProcessInput* instance, int numPosition) {
+extern "C" LIBRARY_EXPORT double new_GetProbability(ArithmeticCodingTmp::ProcessInput* instance, int numPosition) {
 	return instance->GetVecProbability(numPosition);
 }
 

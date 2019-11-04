@@ -85,7 +85,7 @@ namespace ArithmeticCodingTmp {
 		return vectorChar[positionNumber];
 	}
 
-	int ProcessInput::GetVecProbability(int positionNumber) {
+	double ProcessInput::GetVecProbability(int positionNumber) {
 		return vectorProbability[positionNumber];
 	}
 

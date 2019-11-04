@@ -414,8 +414,44 @@ namespace WPFInterop.Views
                     }
 
                     if (j == 0) 
-                    { 
-                
+                    {
+                        TextBlock probStart = new TextBlock()
+                        {
+                            Text = 0.ToString()
+                        };
+
+                        Canvas.SetLeft(probStart, signX + 20);
+                        Canvas.SetTop(probStart, 50);
+                        visualizationWindow.Children.Add(probStart);
+
+                        TextBlock probEnd = new TextBlock()
+                        {
+                            Text = 1.ToString()
+                        };
+
+                        Canvas.SetLeft(probEnd, signX + 20);
+                        Canvas.SetTop(probEnd, 500);
+                        visualizationWindow.Children.Add(probEnd);
+
+                        for (int i = 0; i < howManySigns; i++)
+                        {
+
+                            if (i != howManySigns - 1)
+                            {
+                                
+                                TextBlock initialProb = new TextBlock()
+                                {
+                                    Text = arithmeticObj.GetEndRange(i).ToString()
+                                };
+
+                                Canvas.SetLeft(initialProb, signX + 20);
+                                Canvas.SetTop(initialProb, (int)Math.Floor((pointOfReference * arithmeticObj.GetEndRange(i))) + visualEqualizer);
+                                visualizationWindow.Children.Add(initialProb);
+
+                            }
+                            
+                        }
+                    }
 
                 signPosX += spacing;
 

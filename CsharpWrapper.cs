@@ -19,7 +19,7 @@ namespace WPFInterop
         public static extern char new_GetSign(IntPtr instance, int positionNumber);
 
         [DllImport("ArithmeticCodingLibrary.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int new_GetProbability(IntPtr instance, int positionNumber);
+        public static extern double new_GetProbability(IntPtr instance, int positionNumber);
 
         [DllImport("ArithmeticCodingLibrary.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern double new_GetStartRange(IntPtr instance, int positionNumber);

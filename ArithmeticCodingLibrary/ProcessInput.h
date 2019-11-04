@@ -32,7 +32,7 @@ namespace ArithmeticCodingTmp {
 
 		double GetFinalEncode();
 		char GetVecSign(int positionNumber);
-		int GetVecProbability(int positionNumber);
+		double GetVecProbability(int positionNumber);
 		double GetVecStartRange(int positionNumber);
 		double GetVecEndRange(int positionNumber);
 		double GetVecEncodedStart(int positionNumber);
