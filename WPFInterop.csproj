@@ -78,8 +78,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\CRCViewModel.cs" />
     <Compile Include="Views\ArithmeticView.xaml.cs">
       <DependentUpon>ArithmeticView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CRCView.xaml.cs">
+      <DependentUpon>CRCView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HuffmanView.xaml.cs">
       <DependentUpon>HuffmanView.xaml</DependentUpon>
@@ -100,6 +104,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\ArithmeticView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CRCView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

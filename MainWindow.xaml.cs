@@ -40,9 +40,13 @@ namespace WPFInterop
             huffmanPanel.Visibility = Visibility.Visible;
             huffmanButton.IsEnabled = false;
             arithmeticButton.IsEnabled = true;
+            CRCButton.IsEnabled = true;
             inputBox.Clear();
             inputBox.CharacterCasing = System.Windows.Controls.CharacterCasing.Normal;
             inputBox.MaxLength = 50;
+            huffmanOccurrencesSpace.Text = "";
+            huffmanSignSpace.Text = "";
+            huffmanCodedSpace.Text = "";
         }
 
         private void ArithmeticView_Clicked(object sender, RoutedEventArgs e)
@@ -52,9 +56,22 @@ namespace WPFInterop
             arithmeticPanel.Visibility = Visibility.Visible;
             huffmanButton.IsEnabled = true;
             arithmeticButton.IsEnabled = false;
+            CRCButton.IsEnabled = true;
             inputBox.Clear();
             inputBox.CharacterCasing = System.Windows.Controls.CharacterCasing.Upper;
             inputBox.MaxLength = 7;
+        }
+
+        private void CRCView_Clicked(object sender, RoutedEventArgs e)
+        {
+            DataContext = new CRCViewModel();
+            huffmanPanel.Visibility = Visibility.Collapsed;
+            arithmeticPanel.Visibility = Visibility.Collapsed;
+            huffmanButton.IsEnabled = true;
+            arithmeticButton.IsEnabled = true;
+            CRCButton.IsEnabled = false;
+            inputBox.Clear();
+            inputBox.CharacterCasing = System.Windows.Controls.CharacterCasing.Normal;
         }
 
         private void Proceed_Clicked(object sender, RoutedEventArgs e)
@@ -77,6 +94,5 @@ namespace WPFInterop
                 e.Handled = true;
             }
         }
-
     }
 }

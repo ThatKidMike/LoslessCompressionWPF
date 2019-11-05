@@ -15,6 +15,9 @@
         <DataTemplate x:Name="arithmeticViewTemplate" DataType="{x:Type viewmodels:ArithmeticViewModel}">
             <views:ArithmeticView DataContext="{Binding}"/>
         </DataTemplate>
+        <DataTemplate x:Name="CRCViewTemplate" DataType="{x:Type viewmodels:CRCViewModel}">
+            <views:CRCView DataContext="{Binding}"/>
+        </DataTemplate>
     </Window.Resources>
 
     <Grid x:Name="mainWindowGrid">
@@ -39,15 +42,17 @@
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="20"/>
+                <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button Content="Huffman" Click="HuffmanView_Clicked" x:Name="huffmanButton" Grid.Row="0" Grid.Column="0"/>
             <Button Content="Arithmetic" Click="ArithmeticView_Clicked" x:Name="arithmeticButton" Grid.Row="1" Grid.Column="0"/>
-            <Button x:Name="proceedButton" Content="Proceed"  VerticalAlignment="Bottom" Click="Proceed_Clicked" Grid.Row="3" Grid.Column="0"/>
+            <Button Content="CRC" Click="CRCView_Clicked" x:Name="CRCButton" Grid.Row="2" Grid.Column="0"/>
+            <Button x:Name="proceedButton" Content="Proceed"  VerticalAlignment="Bottom" Click="Proceed_Clicked" Grid.Row="4" Grid.Column="0"/>
             <TextBox x:Name="inputBox" Height="20" x:FieldModifier="public" Background="FloralWhite" Text="Input" PreviewTextInput="TextBox_InputValidation" 
-                         CommandManager.PreviewExecuted="TextBox_PreviewExecuted" ContextMenu="{x:Null}" Grid.Row="2" Grid.Column="0"/>
+                         CommandManager.PreviewExecuted="TextBox_PreviewExecuted" ContextMenu="{x:Null}" Grid.Row="3" Grid.Column="0"/>
         </Grid>
 
         <DockPanel x:Name="huffmanPanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Background="AliceBlue" Margin="0,0,1,0">
