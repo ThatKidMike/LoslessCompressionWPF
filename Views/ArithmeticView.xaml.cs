@@ -115,7 +115,8 @@ namespace WPFInterop.Views
             parentWindow.outputRow_6.Text = "";
             parentWindow.outputRow_7.Text = "";
 
-            foreach (TextBlock tblock in parentWindow.arithmeticPanelGrid.Children.OfType<TextBlock>().Where(x => x.Name.Contains("sign")).ToList()) {
+            foreach (TextBlock tblock in parentWindow.arithmeticPanelGrid.Children.OfType<TextBlock>().Where(x => x.Name.Contains("sign")).ToList())
+            {
                 tblock.Text = "";
                 tblock.Visibility = Visibility.Hidden;
                 TextBox tbox = (TextBox)parentWindow.arithmeticPanelGrid.Children
@@ -149,7 +150,7 @@ namespace WPFInterop.Views
                 if (tb.IsVisible)
                 {
                     if (tb.Text != "")
-                    sum += double.Parse(tb.Text, System.Globalization.CultureInfo.InvariantCulture);
+                        sum += double.Parse(tb.Text, System.Globalization.CultureInfo.InvariantCulture);
                 }
             }
 
@@ -161,7 +162,7 @@ namespace WPFInterop.Views
                 if (tb.IsVisible)
                 {
                     if (tb.Text == "")
-                        someEmpty = true;              
+                        someEmpty = true;
                 }
             }
 
@@ -169,7 +170,8 @@ namespace WPFInterop.Views
             {
                 parentWindow.proceedButton.IsEnabled = true;
                 parentWindow.sumRow.Background = Brushes.ForestGreen;
-            } else
+            }
+            else
             {
                 parentWindow.proceedButton.IsEnabled = false;
                 parentWindow.sumRow.Background = Brushes.IndianRed;
@@ -205,8 +207,8 @@ namespace WPFInterop.Views
                 tb.Text = "0.05";
 
             if (tb.Text.Length != 0)
-            if (double.Parse(tb.Text, System.Globalization.CultureInfo.InvariantCulture) < 0.05)
-                tb.Text = "0.05";
+                if (double.Parse(tb.Text, System.Globalization.CultureInfo.InvariantCulture) < 0.05)
+                    tb.Text = "0.05";
 
             ValidationToProcess(sender);
         }
@@ -229,7 +231,7 @@ namespace WPFInterop.Views
                 {
                     if (tb.IsVisible)
                     {
-                        double it = double.Parse(tb.Text, System.Globalization.CultureInfo.InvariantCulture); 
+                        double it = double.Parse(tb.Text, System.Globalization.CultureInfo.InvariantCulture);
                         probabilities[i] = double.Parse(tb.Text, System.Globalization.CultureInfo.InvariantCulture);
                         i++;
                     }
@@ -267,28 +269,29 @@ namespace WPFInterop.Views
                 parentWindow.signRow_6.Text = parentWindow.inputBox.Text.ElementAtOrDefault(5).ToString();
                 parentWindow.signRow_7.Text = parentWindow.inputBox.Text.ElementAtOrDefault(6).ToString();
 
-                    foreach (TextBlock tb in parentWindow.arithmeticPanelGrid.Children.OfType<TextBlock>().Where(x => x.Name.Contains("sign")).ToList())
+                foreach (TextBlock tb in parentWindow.arithmeticPanelGrid.Children.OfType<TextBlock>().Where(x => x.Name.Contains("sign")).ToList())
+                {
+                    if (tb.Text != "\0")
                     {
-                        if (tb.Text != "\0")
-                        {
-                           int row = Grid.GetRow(tb);
-                           TextBox tbox = (TextBox)parentWindow.arithmeticPanelGrid.Children
-                                          .Cast<UIElement>()
-                                          .First(element => Grid.GetRow(element) == row && Grid.GetColumn(element) == 1);
-                           tbox.Visibility = Visibility.Visible;
-                        } else
-                        {
-                           int row = Grid.GetRow(tb);
-                           TextBox tbox = (TextBox)parentWindow.arithmeticPanelGrid.Children
-                                           .Cast<UIElement>()
-                                           .First(element => Grid.GetRow(element) == row && Grid.GetColumn(element) == 1);
-                           tbox.Visibility = Visibility.Hidden;
-                           TextBlock tblock = (TextBlock)parentWindow.arithmeticPanelGrid.Children.OfType<TextBlock>().Where(x => x.Name.Contains("output"))
-                                              .Cast<UIElement>().First(a => Grid.GetRow(a) == Grid.GetRow(tbox) && Grid.GetColumn(a) == 2);
-                           tblock.Text = "";
+                        int row = Grid.GetRow(tb);
+                        TextBox tbox = (TextBox)parentWindow.arithmeticPanelGrid.Children
+                                       .Cast<UIElement>()
+                                       .First(element => Grid.GetRow(element) == row && Grid.GetColumn(element) == 1);
+                        tbox.Visibility = Visibility.Visible;
                     }
-                            
+                    else
+                    {
+                        int row = Grid.GetRow(tb);
+                        TextBox tbox = (TextBox)parentWindow.arithmeticPanelGrid.Children
+                                        .Cast<UIElement>()
+                                        .First(element => Grid.GetRow(element) == row && Grid.GetColumn(element) == 1);
+                        tbox.Visibility = Visibility.Hidden;
+                        TextBlock tblock = (TextBlock)parentWindow.arithmeticPanelGrid.Children.OfType<TextBlock>().Where(x => x.Name.Contains("output"))
+                                           .Cast<UIElement>().First(a => Grid.GetRow(a) == Grid.GetRow(tbox) && Grid.GetColumn(a) == 2);
+                        tblock.Text = "";
                     }
+
+                }
 
                 ValidationToProcess(sender);
 
@@ -332,6 +335,13 @@ namespace WPFInterop.Views
                 + visualEqualizer) + (int)Math.Floor((pointOfReference * arithmeticObj.GetStartRange(signPos)));
             return calculatedValue;
         }
+
+        private double CalculateCurrentProb(int pos, double probStart, double probEnd)
+        {
+            return arithmeticObj.GetProbability(pos) * (probEnd - probStart);
+        }
+
+
 
         private void DrawHorizontalLines(int howManySigns)
         {
@@ -392,66 +402,81 @@ namespace WPFInterop.Views
 
                 }
 
-                    if (j != howManySigns)
+
+
+                if (j != howManySigns)
+                {
+
+                    double startingProb = arithmeticObj.GetEncodedStart(j);
+                    double endingProb = arithmeticObj.GetEncodedEnd(j);
+
+                    TextBlock probStart = new TextBlock()
                     {
-                        TextBlock probStart = new TextBlock()
+                        Text = startingProb.ToString()
+                    };
+
+                    Canvas.SetLeft(probStart, signX + 120);
+                    Canvas.SetTop(probStart, 50);
+                    visualizationWindow.Children.Add(probStart);
+
+                    double calculatedCumulative = startingProb;
+
+                    for (int k = 0; k < howManySigns; k++)
+                    {
+                        calculatedCumulative += CalculateCurrentProb(k, startingProb, endingProb);
+
+                        TextBlock prob = new TextBlock()
                         {
-                            Text = arithmeticObj.GetEncodedStart(j).ToString()
+                            Text = calculatedCumulative.ToString()
                         };
 
-                        Canvas.SetLeft(probStart, signX + 120);
-                        Canvas.SetTop(probStart, 50);
-                        visualizationWindow.Children.Add(probStart);
+                        Canvas.SetLeft(prob, signX + 120);
+                        Canvas.SetTop(prob, (int)Math.Floor((pointOfReference * arithmeticObj.GetEndRange(k))) + visualEqualizer);
+                        visualizationWindow.Children.Add(prob);
 
-                        TextBlock probEnd = new TextBlock()
-                        {
-                            Text = arithmeticObj.GetEncodedEnd(j).ToString()
-                        };
-
-                        Canvas.SetLeft(probEnd, signX + 120);
-                        Canvas.SetTop(probEnd, 500);
-                        visualizationWindow.Children.Add(probEnd);
                     }
 
-                    if (j == 0) 
+                }
+
+                if (j == 0)
+                {
+                    TextBlock probStart = new TextBlock()
                     {
-                        TextBlock probStart = new TextBlock()
+                        Text = 0.ToString()
+                    };
+
+                    Canvas.SetLeft(probStart, signX + 20);
+                    Canvas.SetTop(probStart, 50);
+                    visualizationWindow.Children.Add(probStart);
+
+                    TextBlock probEnd = new TextBlock()
+                    {
+                        Text = 1.ToString()
+                    };
+
+                    Canvas.SetLeft(probEnd, signX + 20);
+                    Canvas.SetTop(probEnd, 500);
+                    visualizationWindow.Children.Add(probEnd);
+
+                    for (int i = 0; i < howManySigns; i++)
+                    {
+
+                        if (i != howManySigns - 1)
                         {
-                            Text = 0.ToString()
-                        };
 
-                        Canvas.SetLeft(probStart, signX + 20);
-                        Canvas.SetTop(probStart, 50);
-                        visualizationWindow.Children.Add(probStart);
-
-                        TextBlock probEnd = new TextBlock()
-                        {
-                            Text = 1.ToString()
-                        };
-
-                        Canvas.SetLeft(probEnd, signX + 20);
-                        Canvas.SetTop(probEnd, 500);
-                        visualizationWindow.Children.Add(probEnd);
-
-                        for (int i = 0; i < howManySigns; i++)
-                        {
-
-                            if (i != howManySigns - 1)
+                            TextBlock initialProb = new TextBlock()
                             {
-                                
-                                TextBlock initialProb = new TextBlock()
-                                {
-                                    Text = arithmeticObj.GetEndRange(i).ToString()
-                                };
+                                Text = arithmeticObj.GetEndRange(i).ToString()
+                            };
 
-                                Canvas.SetLeft(initialProb, signX + 20);
-                                Canvas.SetTop(initialProb, (int)Math.Floor((pointOfReference * arithmeticObj.GetEndRange(i))) + visualEqualizer);
-                                visualizationWindow.Children.Add(initialProb);
+                            Canvas.SetLeft(initialProb, signX + 20);
+                            Canvas.SetTop(initialProb, (int)Math.Floor((pointOfReference * arithmeticObj.GetEndRange(i))) + visualEqualizer);
+                            visualizationWindow.Children.Add(initialProb);
 
-                            }
-                            
                         }
+
                     }
+                }
 
                 signPosX += spacing;
 
@@ -484,8 +509,8 @@ namespace WPFInterop.Views
                 visualizationWindow.Children.Add(endLine);
 
                 if (j != howManySigns)
-                DrawDottedLine(x1, x2, ((int)Math.Floor((pointOfReference * arithmeticObj.GetStartRange(j))) + visualEqualizer),
-                                  ((int)Math.Floor((pointOfReference * arithmeticObj.GetEndRange(j))) + visualEqualizer));
+                    DrawDottedLine(x1, x2, ((int)Math.Floor((pointOfReference * arithmeticObj.GetStartRange(j))) + visualEqualizer),
+                                      ((int)Math.Floor((pointOfReference * arithmeticObj.GetEndRange(j))) + visualEqualizer));
 
             }
         }

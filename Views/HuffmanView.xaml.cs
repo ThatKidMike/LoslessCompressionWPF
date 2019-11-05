@@ -65,7 +65,9 @@ namespace WPFInterop.Views
             if (parentWindow.DataContext.GetType() == typeof(HuffmanViewModel) && parentWindow.inputBox.Text != "")
             {
                 huffmanObj = new ManagedHuffmanObj(parentWindow.inputBox.Text);
+                parentWindow.codedTextBox.Clear();
                 gViewer.Graph = huffmanObj.HuffmanTreeTraverse(huffmanObj.GetApex());
+                OutputCodedMessage();
                 huffmanObj.delete();
             }
         }
@@ -126,7 +128,6 @@ namespace WPFInterop.Views
                     string code = huffmanObj.GetCodedSigns()[selectedNode.LabelText];
                     if (code != null)
                     {
-                        //parentWindow.outputBlock.Text = selectedNode.LabelText + " :: " + code;
                         parentWindow.huffmanCodedSpace.Text = code;
                         parentWindow.huffmanSignSpace.Text = selectedNode.LabelText;
                     }
@@ -138,6 +139,15 @@ namespace WPFInterop.Views
                 ex.ToString();
             }
 
+        }
+
+        private void OutputCodedMessage()
+        {
+            for (int i = 0; i < parentWindow.inputBox.Text.Length; i++)
+            {
+                parentWindow.codedTextBox.Text += huffmanObj.GetCodedSigns()[parentWindow.inputBox.Text.ElementAt(i).ToString()];
+                parentWindow.codedTextBox.Text += ".";
+            }
         }
     }
 }

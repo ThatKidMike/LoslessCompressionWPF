@@ -62,7 +62,8 @@
                     <RowDefinition Height="20" x:Name="huffRow_7"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Coded message:" Background="GhostWhite"/>
-                <TextBox Grid.Row="1" Grid.Column="0" Background="LightSlateGray" Grid.RowSpan="5" x:Name="codedTextBox" ContextMenu="{x:Null}" CommandManager.PreviewExecuted="TextBox_PreviewExecuted"/>
+                <TextBox Grid.Row="1" Grid.Column="0" Background="LightSlateGray" Grid.RowSpan="5" x:Name="codedTextBox" ContextMenu="{x:Null}" CommandManager.PreviewExecuted="TextBox_PreviewExecuted" 
+                         IsReadOnly="True" TextWrapping="Wrap"/>
                 <Grid Grid.Row="7">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="20" x:Name="huffmanSignColumn"/>
