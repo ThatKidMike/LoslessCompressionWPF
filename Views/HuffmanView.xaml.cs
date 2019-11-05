@@ -130,6 +130,7 @@ namespace WPFInterop.Views
                     {
                         parentWindow.huffmanCodedSpace.Text = code;
                         parentWindow.huffmanSignSpace.Text = selectedNode.LabelText;
+                        parentWindow.huffmanOccurrencesSpace.Text = huffmanObj.GetOccurrenesSigns()[selectedNode.LabelText].ToString();
                     }
 
                 }

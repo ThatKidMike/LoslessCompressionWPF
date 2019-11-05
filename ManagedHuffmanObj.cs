@@ -31,6 +31,7 @@ namespace WPFInterop
         private Graph graph;
         private List<Tuple<string, string>> sourceDestination;
         private Dictionary<string, string> codedSigns;
+        private Dictionary<string, int> occurrencesSigns;
 
         public ManagedHuffmanObj(string inputStream)
         {
@@ -41,6 +42,8 @@ namespace WPFInterop
 
             sourceDestination = new List<Tuple<string, string>>();
             codedSigns = new Dictionary<string, string>();
+            occurrencesSigns = new Dictionary<string, int>();
+
             graph = new Graph("graph");
         }
 
@@ -81,7 +84,8 @@ namespace WPFInterop
                         CsharpWrapper.GetSignChar(currentNodePtr).ToString() == "#")
                     {
 
-                        if (!(sourceDestination.Any(x => x.Item1 == CsharpWrapper.GetId(previousNodePtr).ToString() && x.Item2 == CsharpWrapper.GetId(currentNodePtr).ToString()))) {
+                        if (!(sourceDestination.Any(x => x.Item1 == CsharpWrapper.GetId(previousNodePtr).ToString() && x.Item2 == CsharpWrapper.GetId(currentNodePtr).ToString())))
+                        {
 
                             Edge currentEdge = graph.AddEdge(CsharpWrapper.GetId(previousNodePtr).ToString(), CsharpWrapper.GetId(currentNodePtr).ToString());
 
@@ -160,6 +164,7 @@ namespace WPFInterop
                         CsharpWrapper.SetSignCode(currentNodePtr, code);
                         Console.WriteLine(CsharpWrapper.GetSignChar(currentNodePtr) + " :: " + code);
                         codedSigns.Add(CsharpWrapper.GetSignChar(currentNodePtr).ToString(), code);
+                        occurrencesSigns.Add(CsharpWrapper.GetSignChar(currentNodePtr).ToString(), CsharpWrapper.GetNumOfOccurrences(currentNodePtr));
                         code = "";
                     }
                     else if (CsharpWrapper.GetSignChar(currentNodePtr) == '#')
@@ -189,6 +194,11 @@ namespace WPFInterop
         public Dictionary<string, string> GetCodedSigns()
         {
             return codedSigns;
+        }
+
+        public Dictionary<string, int> GetOccurrenesSigns()
+        {
+            return occurrencesSigns;
         }
     }
 

@@ -351,8 +351,6 @@ namespace WPFInterop.Views
             int spacing = 100;
             int x1 = 35;
             int x2 = 10;
-            int y1 = 500;
-            int y2 = 500;
             int signPosX = 0;
             int signX = -5;
 

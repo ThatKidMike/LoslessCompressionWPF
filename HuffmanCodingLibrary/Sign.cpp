@@ -6,14 +6,14 @@ namespace HuffmanTmp {
 		: sign(sign) {
 
 
-	} 
+	}
 
 	Sign::Sign(char sign, int numOfOccurrences, Sign* leftNode, Sign* rightNode, int id)
 		: sign(sign), numOfOccurrences(numOfOccurrences), leftNode(leftNode), rightNode(rightNode), id(id) {
 
 	}
 
-	Sign::Sign(): sign(sign), numOfOccurrences(numOfOccurrences), leftNode(leftNode), rightNode(rightNode) {
+	Sign::Sign() : sign(sign), numOfOccurrences(numOfOccurrences), leftNode(leftNode), rightNode(rightNode) {
 	}
 
 	char Sign::GetSign() {

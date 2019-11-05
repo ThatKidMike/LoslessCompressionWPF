@@ -6,8 +6,9 @@
              xmlns:local="clr-namespace:WPFInterop.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Canvas x:Name="visualizationWindow" Background="White">
+    <Viewbox>
+            <Canvas x:Name="visualizationWindow" Background="White" Height="550" Width="950" Margin="0 0 0 0">
 
-
-    </Canvas>
+            </Canvas>
+        </Viewbox>
 </UserControl>

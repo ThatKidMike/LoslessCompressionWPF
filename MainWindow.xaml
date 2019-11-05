@@ -66,11 +66,13 @@
                          IsReadOnly="True" TextWrapping="Wrap"/>
                 <Grid Grid.Row="7">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20" x:Name="huffmanSignColumn"/>
+                        <ColumnDefinition Width="25" x:Name="huffmanSignColumn"/>
+                        <ColumnDefinition Width="25" x:Name="huffmanSignOccurColumn"/>
                         <ColumnDefinition x:Name="huffmanCodeColumn"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="huffmanSignSpace" Grid.Row="0" Grid.Column="0" Background="GhostWhite"/>
-                    <TextBlock x:Name="huffmanCodedSpace" Grid.Row="0" Grid.Column="1" Background="PowderBlue"/>
+                    <TextBlock x:Name="huffmanSignSpace" Grid.Row="0" Grid.Column="0" Background="GhostWhite" FontWeight="Bold"/>
+                    <TextBlock x:Name="huffmanOccurrencesSpace" Grid.Row="0" Grid.Column="1" Background="FloralWhite"/>
+                    <TextBlock x:Name="huffmanCodedSpace" Grid.Row="0" Grid.Column="2" Background="PowderBlue"/>
                 </Grid>
             </Grid>
         </DockPanel>
