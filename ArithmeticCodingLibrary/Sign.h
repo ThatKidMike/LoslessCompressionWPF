@@ -27,7 +27,7 @@ namespace ArithmeticCodingTmp {
 		double GetEncodedEnd();
 		void SetEncodedStart(double encodedStart);
 		void SetEncodedEnd(double encodedEnd);
-		
+
 		void SetProbability(int probability);
 
 	};

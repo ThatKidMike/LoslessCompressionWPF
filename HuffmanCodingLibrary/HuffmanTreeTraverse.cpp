@@ -18,7 +18,7 @@ namespace HuffmanTmp {
 				currentNodePtr = currentNodePtr->GetRightNode();
 				code += '1';
 
-			} 
+			}
 			else if (currentNodePtr->GetLeftNode() != nullptr)
 			{
 				previousNodePtr = currentNodePtr;
@@ -41,8 +41,8 @@ namespace HuffmanTmp {
 					currentNodePtr->SetCodedSign(code);
 					codedSigns.insert(it, std::pair<char, std::string>(currentNodePtr->GetSign(), code));
 					code = "";
-				} 
-				else if(currentNodePtr->GetSign() == '#')
+				}
+				else if (currentNodePtr->GetSign() == '#')
 				{
 					if (code[code.size() - 1] == '1')
 					{
@@ -58,7 +58,7 @@ namespace HuffmanTmp {
 				currentNodePtr = apex;
 
 			}
-			
+
 		}
 
 		for (auto it = codedSigns.cbegin(); it != codedSigns.cend(); ++it)
@@ -69,14 +69,14 @@ namespace HuffmanTmp {
 	}
 
 
-/*	Sign** HuffmanTreeTraverse::GetCurrentNodePtr() {
-		return currentNodePtr;
-	} */
+	/*	Sign** HuffmanTreeTraverse::GetCurrentNodePtr() {
+			return currentNodePtr;
+		} */
 
 	std::map<char, std::string> HuffmanTreeTraverse::GetCodedSigns() {
 		return codedSigns;
 	}
-		
+
 
 
 

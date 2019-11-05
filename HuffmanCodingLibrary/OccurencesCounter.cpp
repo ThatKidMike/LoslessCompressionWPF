@@ -15,19 +15,19 @@ namespace HuffmanTmp {
 
 		for (Sign sign : vecTmpSignContainer)
 		{
-				Sign currentSign = sign;
+			Sign currentSign = sign;
 
-				for (Sign internalSign : vecTmpSignContainer)
+			for (Sign internalSign : vecTmpSignContainer)
+			{
+
+				if (currentSign.GetSign() == internalSign.GetSign())
 				{
-
-					if (currentSign.GetSign() == internalSign.GetSign())
-					{
-						currentSign.IncreaseNumOfOccurences();
-					}
-
+					currentSign.IncreaseNumOfOccurences();
 				}
 
-				vecSignContainer.push_back(currentSign);
+			}
+
+			vecSignContainer.push_back(currentSign);
 		}
 
 		vecTmpSignContainer.clear();
@@ -38,8 +38,8 @@ namespace HuffmanTmp {
 		for (int i = 0; i < vecSignContainer.size(); i++)
 		{
 			pqSignContainer.push(&vecSignContainer[i]);
-		} 
-		
+		}
+
 	}
 
 }

@@ -23,7 +23,7 @@ namespace ArithmeticCodingTmp {
 			cumulativeProb += (it->GetProbability());
 			it->SetEndRange(cumulativeProb);
 			previousProb = it->GetEndRange();
-			
+
 		}
 
 		double range = 0.0;
@@ -39,7 +39,7 @@ namespace ArithmeticCodingTmp {
 			it->SetEncodedStart(low);
 			it->SetEncodedEnd(high);
 
-			
+
 		}
 
 		double finalEncoded = low + (high - low) / 2;

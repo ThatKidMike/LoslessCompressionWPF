@@ -17,7 +17,7 @@ namespace ArithmeticCodingTmp {
 			vecEncodedEnd.push_back(it->GetEncodedEnd());
 
 			n++;
-			
+
 		}
 
 		this->finalEncode = finalEncode;

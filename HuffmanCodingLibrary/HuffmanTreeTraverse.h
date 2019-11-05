@@ -20,7 +20,7 @@ namespace HuffmanTmp {
 		//Sign** GetCurrentNodePtr();
 		std::map<char, std::string> GetCodedSigns();
 
-		
+
 	};
 
 

@@ -17,7 +17,7 @@ namespace ArithmeticCodingTmp {
 		std::vector<double> vecEncodedStart;
 		std::vector<double> vecEncodedEnd;
 		double finalEncode;
-		
+
 
 	public:
 		SignsForCsharp(std::list<Sign>* listofSigns, double finalEncode);

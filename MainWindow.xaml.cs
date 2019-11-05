@@ -59,13 +59,13 @@ namespace WPFInterop
 
         private void Proceed_Clicked(object sender, RoutedEventArgs e)
         {
-          
+
         }
 
         private void TextBox_InputValidation(object sender, TextCompositionEventArgs e)
         {
-                Regex regex = new Regex(@"^[a-zA-Z\s]+$");
-                e.Handled = !regex.IsMatch(e.Text);
+            Regex regex = new Regex(@"^[a-zA-Z\s]+$");
+            e.Handled = !regex.IsMatch(e.Text);
         }
 
         private void TextBox_PreviewExecuted(object sender, ExecutedRoutedEventArgs e)

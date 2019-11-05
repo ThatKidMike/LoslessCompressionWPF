@@ -33,11 +33,11 @@ namespace HuffmanTmp {
 
 			bool operator() (Sign* s1, Sign* s2) {
 
-				return s1->numOfOccurrences > s2->numOfOccurrences && s2->numOfOccurrences < s1->numOfOccurrences;
+				return s1->numOfOccurrences > s2->numOfOccurrences&& s2->numOfOccurrences < s1->numOfOccurrences;
 
 			}
 
-		}; 
+		};
 
 		bool operator<(const Sign& s) const {
 
@@ -46,7 +46,7 @@ namespace HuffmanTmp {
 			else return false;
 
 		}
-		 
+
 	};
 
 }

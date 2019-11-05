@@ -22,7 +22,7 @@ namespace HuffmanTmp {
 			currentId++;
 			pqSignContainer->push(resultSign);
 
-		} 
+		}
 
 		apex = pqSignContainer->top();
 		pqSignContainer->pop();
