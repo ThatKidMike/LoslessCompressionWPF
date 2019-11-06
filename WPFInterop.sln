@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArithmeticCodingLibrary", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HuffmanCodingLibrary", "HuffmanCodingLibrary\HuffmanCodingLibrary.vcxproj", "{C4C6AB70-0E81-4045-B008-8DFA2814385C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CRCCodingLibrary", "CRCCodingLibrary\CRCCodingLibrary.vcxproj", "{B28AF519-7CF6-40F0-9A8F-38A4628CE790}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,17 @@ Global
 		{C4C6AB70-0E81-4045-B008-8DFA2814385C}.Release|x64.Build.0 = Release|x64
 		{C4C6AB70-0E81-4045-B008-8DFA2814385C}.Release|x86.ActiveCfg = Release|Win32
 		{C4C6AB70-0E81-4045-B008-8DFA2814385C}.Release|x86.Build.0 = Release|Win32
+		{B28AF519-7CF6-40F0-9A8F-38A4628CE790}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{B28AF519-7CF6-40F0-9A8F-38A4628CE790}.Debug|Any CPU.Build.0 = Debug|x64
+		{B28AF519-7CF6-40F0-9A8F-38A4628CE790}.Debug|x64.ActiveCfg = Debug|x64
+		{B28AF519-7CF6-40F0-9A8F-38A4628CE790}.Debug|x64.Build.0 = Debug|x64
+		{B28AF519-7CF6-40F0-9A8F-38A4628CE790}.Debug|x86.ActiveCfg = Debug|Win32
+		{B28AF519-7CF6-40F0-9A8F-38A4628CE790}.Debug|x86.Build.0 = Debug|Win32
+		{B28AF519-7CF6-40F0-9A8F-38A4628CE790}.Release|Any CPU.ActiveCfg = Release|Win32
+		{B28AF519-7CF6-40F0-9A8F-38A4628CE790}.Release|x64.ActiveCfg = Release|x64
+		{B28AF519-7CF6-40F0-9A8F-38A4628CE790}.Release|x64.Build.0 = Release|x64
+		{B28AF519-7CF6-40F0-9A8F-38A4628CE790}.Release|x86.ActiveCfg = Release|Win32
+		{B28AF519-7CF6-40F0-9A8F-38A4628CE790}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -78,6 +78,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ManagedCRCObj.cs" />
     <Compile Include="ViewModels\CRCViewModel.cs" />
     <Compile Include="Views\ArithmeticView.xaml.cs">
       <DependentUpon>ArithmeticView.xaml</DependentUpon>

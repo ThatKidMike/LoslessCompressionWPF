@@ -86,5 +86,17 @@ namespace WPFInterop
 
         [DllImport("HuffmanCodingLibrary.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern int GetId(IntPtr instance);
+
+        [DllImport("CRCCodingLibrary.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr new_CRC(string msg, string chosenCRC);
+
+        [DllImport("CRCCodingLibrary.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void delete_CRC(IntPtr instance);
+
+        [DllImport("CRCCodingLibrary.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int GetXORListLength(IntPtr instance);
+
+        [DllImport("CRCCodingLibrary.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern string GetXORResult(IntPtr instance, int wichOne);
     }
 }
