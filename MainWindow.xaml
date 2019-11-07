@@ -55,7 +55,31 @@
                          CommandManager.PreviewExecuted="TextBox_PreviewExecuted" ContextMenu="{x:Null}" Grid.Row="3" Grid.Column="0"/>
         </Grid>
 
-        <DockPanel x:Name="huffmanPanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Background="AliceBlue" Margin="0,0,1,0">
+        <DockPanel x:Name="crcPanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Background="AliceBlue" Margin="0,0,1,0" >
+            <Grid x:Name="crcPanelGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <ComboBox x:Name="crcBox" Grid.Row="0">
+                    <ComboBoxItem x:Name="crc1" Content="CRC-4-ITU" x:Uid="crc1"/>
+                    <ComboBoxItem x:Name="crc2" Content="CRC-5-ITU" x:Uid="crc2"/>
+                    <ComboBoxItem x:Name="crc3" Content="CRC-5-USB" x:Uid="crc3"/>
+                    <ComboBoxItem x:Name="crc4" Content="CRC-6-ITU" x:Uid="crc4"/>
+                    <ComboBoxItem x:Name="crc5" Content="CRC-7" x:Uid="crc5"/>
+                    <ComboBoxItem x:Name="crc6" Content="CRC-8-ATM" x:Uid="crc6"/>
+                    <ComboBoxItem x:Name="crc7" Content="CRC-8-CCITT" x:Uid="crc7"/>
+                </ComboBox>
+                <TextBlock x:Name="polynomialTrueForm" Grid.Row="2" Background="FloralWhite" FontSize="15"/>
+                <TextBlock x:Name="polynomialBinaryForm" Grid.Row="3" Background="FloralWhite"/>
+            </Grid>
+        </DockPanel>
+
+        <DockPanel x:Name="huffmanPanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Background="AliceBlue" Margin="0,0,1,0" Visibility="Collapsed">
             <Grid x:Name="huffmanPanelGridFirst">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20" x:Name="huffRow_1"/>

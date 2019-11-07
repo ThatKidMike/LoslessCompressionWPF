@@ -31,11 +31,13 @@ namespace WPFInterop
             InitializeComponent();
             arithmeticPanel.Visibility = Visibility.Hidden;
             huffmanPanel.Visibility = Visibility.Hidden;
+            crcPanel.Visibility = Visibility.Hidden;
         }
 
         private void HuffmanView_Clicked(object sender, RoutedEventArgs e)
         {
             DataContext = new HuffmanViewModel();
+            crcPanel.Visibility = Visibility.Collapsed;
             arithmeticPanel.Visibility = Visibility.Collapsed;
             huffmanPanel.Visibility = Visibility.Visible;
             huffmanButton.IsEnabled = false;
@@ -52,6 +54,7 @@ namespace WPFInterop
         private void ArithmeticView_Clicked(object sender, RoutedEventArgs e)
         {
             DataContext = new ArithmeticViewModel();
+            crcPanel.Visibility = Visibility.Collapsed;
             huffmanPanel.Visibility = Visibility.Collapsed;
             arithmeticPanel.Visibility = Visibility.Visible;
             huffmanButton.IsEnabled = true;
@@ -67,6 +70,7 @@ namespace WPFInterop
             DataContext = new CRCViewModel();
             huffmanPanel.Visibility = Visibility.Collapsed;
             arithmeticPanel.Visibility = Visibility.Collapsed;
+            crcPanel.Visibility = Visibility.Visible;
             huffmanButton.IsEnabled = true;
             arithmeticButton.IsEnabled = true;
             CRCButton.IsEnabled = false;
@@ -81,8 +85,16 @@ namespace WPFInterop
 
         private void TextBox_InputValidation(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex(@"^[a-zA-Z\s]+$");
-            e.Handled = !regex.IsMatch(e.Text);
+            if (DataContext.GetType() == typeof(CRCViewModel))
+            {
+                Regex regex = new Regex(@"^[01]+$");
+                e.Handled = !regex.IsMatch(e.Text);
+            }
+            else
+            {
+                Regex regex = new Regex(@"^[a-zA-Z\s]+$");
+                e.Handled = !regex.IsMatch(e.Text);
+            }
         }
 
         private void TextBox_PreviewExecuted(object sender, ExecutedRoutedEventArgs e)
