@@ -168,6 +168,8 @@ namespace WPFInterop.Views
             string currentXor;
             string spaceEqualizer = "  ";
             string spaceCRCEqualizer = "    ";
+            int currentRow = 0;
+            int lineLengthAdd = 2;
 
             if (parentWindow.DataContext.GetType() == typeof(CRCViewModel) && parentWindow.inputBox.Text != "" && parentWindow.crcBox.SelectedItem != null)
             {
@@ -176,38 +178,46 @@ namespace WPFInterop.Views
                 testingText.FontSize = 15;
                 for (int i = 0; i < xorListLength; i++)
                 {
+                    crcGrid.RowDefinitions.Add(new RowDefinition());
+                    currentRow = i;
+                    TextBlock crcOperation = new TextBlock();
+                    Canvas divLine = new Canvas();
+                    Line line = new Line
+                    {
+                        Stroke = Brushes.Black,
+                        X1 = 1,
+                        X2 = (10*chosenCRC.Length) + lineLengthAdd,
+                        Y1 = 0,
+                        Y2 = 0
+                    };
+                    lineLengthAdd += 10;
+                    divLine.Children.Add(line);
+                    crcOperation.FontSize = 14;
+
                     if (i == 0)
                     {
-                        testingText.Text += System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i)) + "\n";
-                        currentXor = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i));
-                        testingText.Text += chosenCRC + "\n";
+                        crcOperation.Text += System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i)) + "\n";
+                        crcOperation.Text += chosenCRC;
 
-                        for (int j = 0; j < currentXor.Length; j++)
-                        {
-                            testingText.Text += "-";
-                        }
-
-                        testingText.Text += "\n";
+                        crcGrid.Children.Add(crcOperation);
+                        Grid.SetRow(crcOperation, i);
+                        crcGrid.Children.Add(divLine);
+                        Grid.SetRow(divLine, i + 1);
                     }
                     else if (i > 0 && i < xorListLength - 1)
                     {
-                        testingText.Text += spaceEqualizer + "0" + System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i)) + "\n";
-                        currentXor = spaceEqualizer + "0" + System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i)); 
+
+                        crcOperation.Text += spaceEqualizer + "0" + System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i)) + "\n";
 
                         if (i == 1)
-                            testingText.Text += spaceEqualizer + spaceEqualizer + chosenCRC + "\n";
+                            crcOperation.Text += spaceEqualizer + spaceEqualizer + chosenCRC;
                         else
-                            testingText.Text += spaceCRCEqualizer + chosenCRC + "\n";
+                            crcOperation.Text += spaceCRCEqualizer + chosenCRC;
 
-                        for (int j = 0; j < currentXor.Length; j++)
-                        {
-                            if (currentXor.ElementAt(j) == ' ')
-                                testingText.Text += " ";
-                            else
-                                testingText.Text += "-";
-                        }
-
-                        testingText.Text += "\n";
+                        crcGrid.Children.Add(crcOperation);
+                        Grid.SetRow(crcOperation, i);
+                        crcGrid.Children.Add(divLine);
+                        Grid.SetRow(divLine, i + 1);
 
                         spaceEqualizer += "  ";
                         spaceCRCEqualizer += "  ";
@@ -215,7 +225,11 @@ namespace WPFInterop.Views
                     }
                     else if (i == xorListLength - 1)
                     {
-                        testingText.Text += spaceEqualizer + "0" + System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i)) + "\n";
+                        crcOperation.Text += spaceEqualizer + "0" + System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i));
+                        crcGrid.Children.Add(crcOperation);
+                        Grid.SetRow(crcOperation, i);
+                        crcGrid.Children.Add(divLine);
+                        Grid.SetRow(divLine, i + 1);
                         spaceEqualizer += "  ";
                     }
 

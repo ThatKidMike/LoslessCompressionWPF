@@ -6,9 +6,14 @@
              xmlns:local="clr-namespace:WPFInterop.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+    <Grid x:Name="crcGrid" Background="White">
+        <Grid.RowDefinitions>
+            
+        </Grid.RowDefinitions>
+        
             <TextBlock x:Name="testingText"/>
-        </ScrollViewer>
+        
     </Grid>
+    </ScrollViewer>
 </UserControl>
