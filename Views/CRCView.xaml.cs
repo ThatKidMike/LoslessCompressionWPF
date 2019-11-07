@@ -164,11 +164,10 @@ namespace WPFInterop.Views
 
         private void ProceedButtonClicked(object sender, RoutedEventArgs e)
         {
-            string previousXor;
-            string currentXor;
+            crcGrid.Children.Clear();
+            crcGrid.RowDefinitions.Clear();
             string spaceEqualizer = "  ";
             string spaceCRCEqualizer = "    ";
-            int currentRow = 0;
             int lineLengthAdd = 2;
 
             if (parentWindow.DataContext.GetType() == typeof(CRCViewModel) && parentWindow.inputBox.Text != "" && parentWindow.crcBox.SelectedItem != null)
@@ -179,14 +178,13 @@ namespace WPFInterop.Views
                 for (int i = 0; i < xorListLength; i++)
                 {
                     crcGrid.RowDefinitions.Add(new RowDefinition());
-                    currentRow = i;
                     TextBlock crcOperation = new TextBlock();
                     Canvas divLine = new Canvas();
                     Line line = new Line
                     {
                         Stroke = Brushes.Black,
                         X1 = 1,
-                        X2 = (10*chosenCRC.Length) + lineLengthAdd,
+                        X2 = (10 * chosenCRC.Length) + lineLengthAdd,
                         Y1 = 0,
                         Y2 = 0
                     };
@@ -197,7 +195,18 @@ namespace WPFInterop.Views
                     if (i == 0)
                     {
                         crcOperation.Text += System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i)) + "\n";
-                        crcOperation.Text += chosenCRC;
+
+                        if (crcOperation.Text.ElementAt(0) == chosenCRC.ElementAt(0))
+                        {
+                            crcOperation.Inlines.Add(new Run(chosenCRC));
+                            crcOperation.Inlines.Add(new Run(" --> XOR and right shift") { Foreground = Brushes.DodgerBlue });
+                        }
+                        else
+                        {
+                            crcOperation.Inlines.Add(new Run(chosenCRC));
+                            crcOperation.Inlines.Add(new Run(" --> right shift") { Foreground = Brushes.DodgerBlue });
+                        }
+
 
                         crcGrid.Children.Add(crcOperation);
                         Grid.SetRow(crcOperation, i);
@@ -210,9 +219,17 @@ namespace WPFInterop.Views
                         crcOperation.Text += spaceEqualizer + "0" + System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i)) + "\n";
 
                         if (i == 1)
-                            crcOperation.Text += spaceEqualizer + spaceEqualizer + chosenCRC;
+                            crcOperation.Inlines.Add(new Run(spaceEqualizer + spaceEqualizer + chosenCRC));
                         else
-                            crcOperation.Text += spaceCRCEqualizer + chosenCRC;
+                            crcOperation.Inlines.Add(new Run(spaceCRCEqualizer + chosenCRC));
+
+                        if (System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i)).ElementAt(0)
+                            == chosenCRC.ElementAt(0) && i != xorListLength - 2)
+                            crcOperation.Inlines.Add(new Run(" --> XOR and right shift") { Foreground = Brushes.DodgerBlue });
+                        else if (i == xorListLength - 2)
+                            crcOperation.Inlines.Add(new Run(" --> XOR") { Foreground = Brushes.DodgerBlue });
+                        else
+                            crcOperation.Inlines.Add(new Run(" --> right shift") { Foreground = Brushes.DodgerBlue });
 
                         crcGrid.Children.Add(crcOperation);
                         Grid.SetRow(crcOperation, i);
@@ -225,7 +242,12 @@ namespace WPFInterop.Views
                     }
                     else if (i == xorListLength - 1)
                     {
-                        crcOperation.Text += spaceEqualizer + "0" + System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i));
+                        crcOperation.Text += spaceEqualizer + "0";
+                        crcOperation.Inlines.Clear();
+                        crcOperation.Inlines.Add(new Run(spaceEqualizer + "0"));
+                        crcOperation.Inlines.Add(new Run(System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i)))
+                        { Foreground = Brushes.Red });
+                        crcOperation.Inlines.Add(new Run(" <-- CRC") { Foreground = Brushes.Red });
                         crcGrid.Children.Add(crcOperation);
                         Grid.SetRow(crcOperation, i);
                         crcGrid.Children.Add(divLine);
