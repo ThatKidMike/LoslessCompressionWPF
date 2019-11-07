@@ -96,7 +96,7 @@ namespace WPFInterop
         [DllImport("CRCCodingLibrary.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern int GetXORListLength(IntPtr instance);
 
-        [DllImport("CRCCodingLibrary.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern string GetXORResult(IntPtr instance, int wichOne);
+        [DllImport("CRCCodingLibrary.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+        public static extern IntPtr GetXORResult(IntPtr instance, int wichOne);
     }
 }

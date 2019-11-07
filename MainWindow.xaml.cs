@@ -76,6 +76,7 @@ namespace WPFInterop
             CRCButton.IsEnabled = false;
             inputBox.Clear();
             inputBox.CharacterCasing = System.Windows.Controls.CharacterCasing.Normal;
+            inputBox.MaxLength = 50;
         }
 
         private void Proceed_Clicked(object sender, RoutedEventArgs e)

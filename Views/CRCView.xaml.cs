@@ -24,7 +24,7 @@ namespace WPFInterop.Views
 
         private ManagedCRCObj crcOBJ;
         private MainWindow parentWindow;
-        private string chosedCRC;
+        private string chosenCRC;
         private bool handle = true;
 
         public CRCView()
@@ -97,7 +97,8 @@ namespace WPFInterop.Views
                         UnicodeSuperScript("CRC-8-CCITT");
                         break;
                 }
-            } else
+            }
+            else
             {
                 parentWindow.polynomialTrueForm.Text = "";
                 parentWindow.polynomialBinaryForm.Text = "";
@@ -112,37 +113,37 @@ namespace WPFInterop.Views
                 case "CRC-4-ITU":
                     parentWindow.polynomialTrueForm.Text = "x\x2074 + x + 1";
                     parentWindow.polynomialBinaryForm.Text = "10011";
-                    chosedCRC = "10011";
+                    chosenCRC = "10011";
                     break;
                 case "CRC-5-ITU":
                     parentWindow.polynomialTrueForm.Text = "x\x2075 + x\x2074 + x\x00B2 + 1";
                     parentWindow.polynomialBinaryForm.Text = "110101";
-                    chosedCRC = "110101";
+                    chosenCRC = "110101";
                     break;
                 case "CRC-5-USB":
                     parentWindow.polynomialTrueForm.Text = "x\x2075 + x\x00B2 + 1";
                     parentWindow.polynomialBinaryForm.Text = "100101";
-                    chosedCRC = "100101";
+                    chosenCRC = "100101";
                     break;
                 case "CRC-6-ITU":
                     parentWindow.polynomialTrueForm.Text = "x\x2076 + x + 1";
                     parentWindow.polynomialBinaryForm.Text = "1000011";
-                    chosedCRC = "1000011";
+                    chosenCRC = "1000011";
                     break;
                 case "CRC-7":
                     parentWindow.polynomialTrueForm.Text = "x\x2077 + x\x00B3 + 1";
                     parentWindow.polynomialBinaryForm.Text = "10001001";
-                    chosedCRC = "10001001";
+                    chosenCRC = "10001001";
                     break;
                 case "CRC-8-ATM":
                     parentWindow.polynomialTrueForm.Text = "x\x2078 + x\x00B2 + x + 1";
                     parentWindow.polynomialBinaryForm.Text = "100000111";
-                    chosedCRC = "100000111";
+                    chosenCRC = "100000111";
                     break;
                 case "CRC-8-CCITT":
                     parentWindow.polynomialTrueForm.Text = "x\x2078 + x\x2077 + x\x00B3 + x\x00B2 + 1";
                     parentWindow.polynomialBinaryForm.Text = "110001101";
-                    chosedCRC = "110001101"; ;
+                    chosenCRC = "110001101"; ;
                     break;
             }
 
@@ -154,7 +155,8 @@ namespace WPFInterop.Views
             {
                 parentWindow.proceedButton.IsEnabled = true;
 
-            } else
+            }
+            else
             {
                 parentWindow.proceedButton.IsEnabled = false;
             }
@@ -162,11 +164,66 @@ namespace WPFInterop.Views
 
         private void ProceedButtonClicked(object sender, RoutedEventArgs e)
         {
+            string previousXor;
+            string currentXor;
+            string spaceEqualizer = "  ";
+            string spaceCRCEqualizer = "    ";
+
             if (parentWindow.DataContext.GetType() == typeof(CRCViewModel) && parentWindow.inputBox.Text != "" && parentWindow.crcBox.SelectedItem != null)
             {
-                crcOBJ = new ManagedCRCObj(parentWindow.inputBox.Text, null);
+                crcOBJ = new ManagedCRCObj(parentWindow.inputBox.Text, chosenCRC);
+                int xorListLength = crcOBJ.GetXORListLength();
+                testingText.FontSize = 15;
+                for (int i = 0; i < xorListLength; i++)
+                {
+                    if (i == 0)
+                    {
+                        testingText.Text += System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i)) + "\n";
+                        currentXor = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i));
+                        testingText.Text += chosenCRC + "\n";
+
+                        for (int j = 0; j < currentXor.Length; j++)
+                        {
+                            testingText.Text += "-";
+                        }
+
+                        testingText.Text += "\n";
+                    }
+                    else if (i > 0 && i < xorListLength - 1)
+                    {
+                        testingText.Text += spaceEqualizer + "0" + System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i)) + "\n";
+                        currentXor = spaceEqualizer + "0" + System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i)); 
+
+                        if (i == 1)
+                            testingText.Text += spaceEqualizer + spaceEqualizer + chosenCRC + "\n";
+                        else
+                            testingText.Text += spaceCRCEqualizer + chosenCRC + "\n";
+
+                        for (int j = 0; j < currentXor.Length; j++)
+                        {
+                            if (currentXor.ElementAt(j) == ' ')
+                                testingText.Text += " ";
+                            else
+                                testingText.Text += "-";
+                        }
+
+                        testingText.Text += "\n";
+
+                        spaceEqualizer += "  ";
+                        spaceCRCEqualizer += "  ";
+
+                    }
+                    else if (i == xorListLength - 1)
+                    {
+                        testingText.Text += spaceEqualizer + "0" + System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i)) + "\n";
+                        spaceEqualizer += "  ";
+                    }
+
+                }
+                crcOBJ.delete();
             }
         }
     }
 
 }
+

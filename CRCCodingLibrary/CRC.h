@@ -18,7 +18,7 @@ namespace tmpCRC {
 		~CRC();
 
 		std::string GetFinalCRC();
-		std::vector<std::string> GetListOfXorOperations();
+		std::vector<std::string>* GetListOfXorOperations();
 	};
 
 }

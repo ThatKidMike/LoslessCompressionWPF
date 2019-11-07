@@ -25,7 +25,7 @@ namespace WPFInterop
             return CsharpWrapper.GetXORListLength(native_CRC);
         }
 
-        public string GetXORResult(int wichOne)
+        public IntPtr GetXORResult(int wichOne)
         {
             return CsharpWrapper.GetXORResult(native_CRC, wichOne);
         }

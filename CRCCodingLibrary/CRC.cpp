@@ -39,7 +39,7 @@ namespace tmpCRC {
 				char xorResult = ((currentData[i]) - '0') ^ ((chosenCRC[i]) - '0');
 				newData += xorResult + '0';
 			}
-			else {
+			else if (currentData[0] == '0') {
 				break;
 			}
 
@@ -57,9 +57,9 @@ namespace tmpCRC {
 		return finalCRC;
 	}
 
-	std::vector<std::string> CRC::GetListOfXorOperations()
+	std::vector<std::string>* CRC::GetListOfXorOperations()
 	{
-		return vectorXOROperations;
+		return &vectorXOROperations;
 	}
 
 }

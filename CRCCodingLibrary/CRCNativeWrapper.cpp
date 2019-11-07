@@ -15,10 +15,10 @@ extern "C" LIBRARY_EXPORT void delete_CRC(tmpCRC::CRC* instance)
 
 extern "C" LIBRARY_EXPORT int GetXORListLength(tmpCRC::CRC* instance)
 {
-	return instance->GetListOfXorOperations().size();
+	return instance->GetListOfXorOperations()->size();
 }
 
-extern "C" LIBRARY_EXPORT std::string GetXORResult(tmpCRC::CRC* instance, int wichOne)
+extern "C" LIBRARY_EXPORT const char * GetXORResult(tmpCRC::CRC* instance, int wichOne)
 {
-	return  instance->GetListOfXorOperations()[wichOne];
+	return  instance->GetListOfXorOperations()->at(wichOne).c_str();
 }
