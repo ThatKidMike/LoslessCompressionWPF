@@ -184,6 +184,7 @@ namespace WPFInterop.Views
             {
                 TextBox tb = (TextBox)sender;
                 tb.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                ValidationToProcess(sender);
             }
         }
 

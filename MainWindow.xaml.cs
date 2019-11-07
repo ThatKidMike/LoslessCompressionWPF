@@ -49,6 +49,7 @@ namespace WPFInterop
             huffmanOccurrencesSpace.Text = "";
             huffmanSignSpace.Text = "";
             huffmanCodedSpace.Text = "";
+            codedTextBox.Text = "";
         }
 
         private void ArithmeticView_Clicked(object sender, RoutedEventArgs e)

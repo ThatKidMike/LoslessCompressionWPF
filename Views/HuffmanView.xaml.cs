@@ -29,7 +29,6 @@ namespace WPFInterop.Views
         public HuffmanView()
         {
             InitializeComponent();
-
             gViewer.ToolBarIsVisible = false;
             gViewer.KeyDown += new System.Windows.Forms.KeyEventHandler(_ViewerKeyDown);
             KeyDown += HostWindowKeyDown;

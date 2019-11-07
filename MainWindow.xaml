@@ -55,7 +55,7 @@
                          CommandManager.PreviewExecuted="TextBox_PreviewExecuted" ContextMenu="{x:Null}" Grid.Row="3" Grid.Column="0"/>
         </Grid>
 
-        <DockPanel x:Name="crcPanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Background="AliceBlue" Margin="0,0,1,0" >
+        <DockPanel x:Name="crcPanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Background="AliceBlue" Margin="0,0,1,0" Visibility="Collapsed">
             <Grid x:Name="crcPanelGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20"/>
