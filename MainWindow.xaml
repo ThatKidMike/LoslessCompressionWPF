@@ -60,7 +60,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="20"/>
@@ -73,8 +73,11 @@
                     <ComboBoxItem x:Name="crc5" Content="CRC-7" x:Uid="crc5"/>
                     <ComboBoxItem x:Name="crc6" Content="CRC-8-ATM" x:Uid="crc6"/>
                     <ComboBoxItem x:Name="crc7" Content="CRC-8-CCITT" x:Uid="crc7"/>
+                    <ComboBoxItem x:Name="crc8" Content="CRC-32-IEEE" x:Uid="crc8"/>
                 </ComboBox>
-                <TextBlock x:Name="polynomialTrueForm" Grid.Row="2" Background="FloralWhite" FontSize="15"/>
+                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+                    <TextBlock x:Name="polynomialTrueForm" Grid.Row="2" Background="FloralWhite" FontSize="15"/>
+                </ScrollViewer>
                 <TextBlock x:Name="polynomialBinaryForm" Grid.Row="3" Background="FloralWhite"/>
             </Grid>
         </DockPanel>

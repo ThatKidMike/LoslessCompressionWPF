@@ -96,6 +96,9 @@ namespace WPFInterop.Views
                     case "CRC-8-CCITT":
                         UnicodeSuperScript("CRC-8-CCITT");
                         break;
+                    case "CRC-32-IEEE":
+                        UnicodeSuperScript("CRC-32-IEEE");
+                        break;
                 }
             }
             else
@@ -144,6 +147,12 @@ namespace WPFInterop.Views
                     parentWindow.polynomialTrueForm.Text = "x\x2078 + x\x2077 + x\x00B3 + x\x00B2 + 1";
                     parentWindow.polynomialBinaryForm.Text = "110001101";
                     chosenCRC = "110001101"; ;
+                    break;
+                case "CRC-32-IEEE":
+                    parentWindow.polynomialTrueForm.Text = "x\x00B3\x00B2 + x\x00B2\x2076 + x\x00B2\x00B3 + x\x00B2\x00B2 + x\x00B9\x2076 + x\x00B9\x00B2" +
+                         " + x\x00B9\x00B9 + x\x00B9\x2070 + x\x2078 + x\x2077 + x\x2075 + x\x2074 + x\x00B2 + x + 1 ";
+                    parentWindow.polynomialBinaryForm.Text = "100000100110000010001110110110111";
+                    chosenCRC = "100000100110000010001110110110111"; ;
                     break;
             }
 
