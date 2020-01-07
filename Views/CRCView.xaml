@@ -9,8 +9,10 @@
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
     <Grid x:Name="crcGrid" Background="White">
         <Grid.RowDefinitions>
-            
-        </Grid.RowDefinitions>
+                <RowDefinition>
+
+                </RowDefinition>
+            </Grid.RowDefinitions>
         
             <TextBlock x:Name="testingText"/>
         

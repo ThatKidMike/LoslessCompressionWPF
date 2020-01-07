@@ -175,6 +175,8 @@ namespace WPFInterop.Views
         {
             crcGrid.Children.Clear();
             crcGrid.RowDefinitions.Clear();
+            var gridLengthConverter = new GridLengthConverter();
+            RowDefinition row;
             string spaceEqualizer = "  ";
             string spaceCRCEqualizer = "    ";
             int lineLengthAdd = 2;
@@ -216,9 +218,17 @@ namespace WPFInterop.Views
                             crcOperation.Inlines.Add(new Run(" --> right shift") { Foreground = Brushes.DodgerBlue });
                         }
 
+                        row = new RowDefinition();
+                        row.Height = (GridLength)gridLengthConverter.ConvertFromString("*");
+                        crcGrid.RowDefinitions.Add(row);
 
                         crcGrid.Children.Add(crcOperation);
                         Grid.SetRow(crcOperation, i);
+
+                        row = new RowDefinition();
+                        row.Height = (GridLength)gridLengthConverter.ConvertFromString("*");
+                        crcGrid.RowDefinitions.Add(row);
+
                         crcGrid.Children.Add(divLine);
                         Grid.SetRow(divLine, i + 1);
                     }
@@ -240,8 +250,17 @@ namespace WPFInterop.Views
                         else
                             crcOperation.Inlines.Add(new Run(" --> right shift") { Foreground = Brushes.DodgerBlue });
 
+                        row = new RowDefinition();
+                        row.Height = (GridLength)gridLengthConverter.ConvertFromString("*");
+                        crcGrid.RowDefinitions.Add(row);
+
                         crcGrid.Children.Add(crcOperation);
                         Grid.SetRow(crcOperation, i);
+
+                        row = new RowDefinition();
+                        row.Height = (GridLength)gridLengthConverter.ConvertFromString("*");
+                        crcGrid.RowDefinitions.Add(row);
+
                         crcGrid.Children.Add(divLine);
                         Grid.SetRow(divLine, i + 1);
 
@@ -257,10 +276,14 @@ namespace WPFInterop.Views
                         crcOperation.Inlines.Add(new Run(System.Runtime.InteropServices.Marshal.PtrToStringAnsi(crcOBJ.GetXORResult(i)))
                         { Foreground = Brushes.Red });
                         crcOperation.Inlines.Add(new Run(" <-- CRC") { Foreground = Brushes.Red });
+
+                        row = new RowDefinition();
+                        row.Height = (GridLength)gridLengthConverter.ConvertFromString("*");
+                        crcGrid.RowDefinitions.Add(row);
+
                         crcGrid.Children.Add(crcOperation);
                         Grid.SetRow(crcOperation, i);
-                        crcGrid.Children.Add(divLine);
-                        Grid.SetRow(divLine, i + 1);
+
                         spaceEqualizer += "  ";
                     }
 
